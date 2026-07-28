@@ -8,6 +8,7 @@ import { LevelSpec, LevelManifest } from '@playnest/level-schema';
 import { GameHUD } from '@/components/game/GameHUD';
 import { VictoryModal } from '@/components/game/VictoryModal';
 import { HintModal } from '@/components/game/HintModal';
+import { LeaderboardModal } from '@/components/game/LeaderboardModal';
 import { useGameStore } from '@/store/useGameStore';
 
 // Dynamically import GameContainer with ssr: false so Phaser isn't executed on Node server
@@ -39,6 +40,7 @@ export default function GamePlayPage({ params }: { params: Promise<{ gameId: str
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [restartKey, setRestartKey] = useState(0);
+  const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
 
   useEffect(() => {
     initSaveData();
@@ -92,9 +94,10 @@ export default function GamePlayPage({ params }: { params: Promise<{ gameId: str
         {/* Game HUD Header */}
         <GameHUD
           levelNumber={activeLevelNumber}
-          totalLevels={manifest?.levels.length || 5}
+          totalLevels={manifest?.levels.length || 50}
           hintText={levelSpec?.hint.text || 'Observe the items on screen carefully!'}
           onRestart={handleRestartLevel}
+          onOpenLeaderboard={() => setIsLeaderboardOpen(true)}
         />
 
         {/* Main Canvas Area */}
@@ -123,11 +126,12 @@ export default function GamePlayPage({ params }: { params: Promise<{ gameId: str
       {/* Modals */}
       <VictoryModal
         levelNumber={activeLevelNumber}
-        totalLevels={manifest?.levels.length || 5}
+        totalLevels={manifest?.levels.length || 50}
         onNextLevel={handleNextLevel}
         onRestartLevel={handleRestartLevel}
       />
       <HintModal />
+      <LeaderboardModal isOpen={isLeaderboardOpen} onClose={() => setIsLeaderboardOpen(false)} />
     </div>
   );
 }

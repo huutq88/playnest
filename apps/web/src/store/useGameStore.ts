@@ -3,6 +3,7 @@ import { saveManager } from '@playnest/puzzle-engine/save';
 import { db, initAnalytics } from '@/lib/firebase';
 import { logEvent } from 'firebase/analytics';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { getOrCreateGuestUser, setGuestNickname } from '@/lib/user';
 
 interface GameState {
   currentLevel: number;
@@ -15,9 +16,12 @@ interface GameState {
   isVictoryModalOpen: boolean;
   isHintModalOpen: boolean;
   hintText: string;
+  guestId: string;
+  nickname: string;
 
   // Actions
   initSaveData: () => void;
+  updateNickname: (name: string) => void;
   setCurrentLevel: (level: number) => void;
   completeCurrentLevel: () => void;
   useHint: () => boolean;
@@ -39,9 +43,12 @@ export const useGameStore = create<GameState>((set, get) => ({
   isVictoryModalOpen: false,
   isHintModalOpen: false,
   hintText: '',
+  guestId: '',
+  nickname: '',
 
   initSaveData: () => {
     const data = saveManager.getSaveData();
+    const { guestId, nickname } = getOrCreateGuestUser();
     set({
       currentLevel: data.currentLevel,
       completedLevels: data.completedLevels,
@@ -50,20 +57,50 @@ export const useGameStore = create<GameState>((set, get) => ({
       stars: data.stars ?? 0,
       lives: data.lives ?? 3,
       soundEnabled: data.soundEnabled,
+      guestId,
+      nickname,
     });
+  },
+
+  updateNickname: (name: string) => {
+    const newName = setGuestNickname(name);
+    set({ nickname: newName });
+    const { guestId, stars, coins, completedLevels } = get();
+
+    if (typeof window !== 'undefined' && guestId) {
+      try {
+        const userRef = doc(db, 'leaderboards', 'tricky-brain', 'scores', guestId);
+        setDoc(
+          userRef,
+          {
+            guestId,
+            nickname: newName,
+            stars,
+            coins,
+            completedCount: completedLevels.length,
+            updatedAt: serverTimestamp(),
+          },
+          { merge: true }
+        ).catch(() => {});
+      } catch (e) {
+        // Silently handle offline mode
+      }
+    }
   },
 
   setCurrentLevel: (level: number) => {
     set({ currentLevel: level });
     // Log level start to Firebase Analytics
-    initAnalytics().then((analytics) => {
-      if (analytics) {
-        logEvent(analytics, 'level_start', {
-          game_id: 'tricky-brain',
-          level_number: level,
-        });
-      }
-    }).catch(() => {});
+    initAnalytics()
+      .then((analytics) => {
+        if (analytics) {
+          logEvent(analytics, 'level_start', {
+            game_id: 'tricky-brain',
+            level_number: level,
+          });
+        }
+      })
+      .catch(() => {});
   },
 
   completeCurrentLevel: () => {
@@ -77,29 +114,33 @@ export const useGameStore = create<GameState>((set, get) => ({
     });
 
     // 1. Sync to Firebase GA4 Analytics
-    initAnalytics().then((analytics) => {
-      if (analytics) {
-        logEvent(analytics, 'level_complete', {
-          game_id: 'tricky-brain',
-          level_number: state.currentLevel,
-          coins_earned: 10,
-          stars_earned: 3,
-        });
-      }
-    }).catch(() => {});
+    initAnalytics()
+      .then((analytics) => {
+        if (analytics) {
+          logEvent(analytics, 'level_complete', {
+            game_id: 'tricky-brain',
+            level_number: state.currentLevel,
+            coins_earned: 10,
+            stars_earned: 3,
+          });
+        }
+      })
+      .catch(() => {});
 
-    // 2. Sync to Cloud Firestore Progress
-    if (typeof window !== 'undefined') {
+    // 2. Sync to Cloud Firestore Leaderboard
+    if (typeof window !== 'undefined' && state.guestId) {
       try {
-        const userProgressRef = doc(db, 'users', 'guest_user', 'progress', 'tricky-brain');
+        const userRef = doc(db, 'leaderboards', 'tricky-brain', 'scores', state.guestId);
         setDoc(
-          userProgressRef,
+          userRef,
           {
-            currentLevel: updated.currentLevel,
-            completedLevels: updated.completedLevels,
-            coins: updated.coins,
+            guestId: state.guestId,
+            nickname: state.nickname || 'Guest Gamer',
             stars: updated.stars,
-            lastPlayedAt: serverTimestamp(),
+            coins: updated.coins,
+            completedCount: updated.completedLevels.length,
+            lastLevelCompleted: state.currentLevel,
+            updatedAt: serverTimestamp(),
           },
           { merge: true }
         ).catch(() => {});
@@ -116,15 +157,17 @@ export const useGameStore = create<GameState>((set, get) => ({
       set({ hintBalance: data.hintBalance });
 
       // Log hint usage to Firebase Analytics
-      initAnalytics().then((analytics) => {
-        if (analytics) {
-          logEvent(analytics, 'use_hint', {
-            game_id: 'tricky-brain',
-            level_number: get().currentLevel,
-            hints_remaining: data.hintBalance,
-          });
-        }
-      }).catch(() => {});
+      initAnalytics()
+        .then((analytics) => {
+          if (analytics) {
+            logEvent(analytics, 'use_hint', {
+              game_id: 'tricky-brain',
+              level_number: get().currentLevel,
+              hints_remaining: data.hintBalance,
+            });
+          }
+        })
+        .catch(() => {});
     }
     return success;
   },

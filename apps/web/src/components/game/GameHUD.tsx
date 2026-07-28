@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Lightbulb, RotateCcw, Volume2, VolumeX, Star, Heart, Plus } from 'lucide-react';
+import { ArrowLeft, Lightbulb, RotateCcw, Star, Heart, Trophy } from 'lucide-react';
 import { useGameStore } from '@/store/useGameStore';
 
 interface GameHUDProps {
@@ -10,6 +10,7 @@ interface GameHUDProps {
   totalLevels: number;
   hintText: string;
   onRestart: () => void;
+  onOpenLeaderboard?: () => void;
 }
 
 export const GameHUD: React.FC<GameHUDProps> = ({
@@ -17,14 +18,15 @@ export const GameHUD: React.FC<GameHUDProps> = ({
   totalLevels,
   hintText,
   onRestart,
+  onOpenLeaderboard,
 }) => {
-  const { hintBalance, coins, stars, lives, soundEnabled, toggleSound, useHint, openHintModal } = useGameStore();
+  const { hintBalance, coins, stars, lives, useHint, openHintModal } = useGameStore();
 
   const handleHintClick = () => {
     if (useHint()) {
       openHintModal(hintText);
     } else {
-      alert('You have run out of hints! Watch a rewarded ad to earn more.');
+      alert('You have run out of hints!');
     }
   };
 
@@ -46,19 +48,24 @@ export const GameHUD: React.FC<GameHUDProps> = ({
           <span>{stars}</span>
         </div>
 
-        {/* Coins Pill */}
-        <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-yellow-500/15 border border-yellow-500/30 text-yellow-300 text-xs font-bold shadow-sm">
-          <span className="text-sm">🪙</span>
-          <span>{coins}</span>
-        </div>
+        {/* Leaderboard Button */}
+        {onOpenLeaderboard && (
+          <button
+            onClick={onOpenLeaderboard}
+            className="p-2 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 hover:bg-amber-500/25 transition-colors cursor-pointer"
+            aria-label="Open Leaderboard"
+          >
+            <Trophy className="w-4 h-4 fill-amber-400" />
+          </button>
+        )}
       </div>
 
       {/* Center: Level Pill Badge */}
-      <div className="px-3.5 py-1 rounded-full bg-gradient-to-r from-blue-600/30 to-purple-600/30 border border-purple-500/40 text-purple-200 text-xs font-extrabold shadow-sm tracking-wide uppercase">
-        Level {levelNumber}
+      <div className="px-3 py-1 rounded-full bg-gradient-to-r from-blue-600/30 to-purple-600/30 border border-purple-500/40 text-purple-200 text-xs font-extrabold shadow-sm tracking-wide uppercase">
+        Lvl {levelNumber}/{totalLevels}
       </div>
 
-      {/* Right: Hint (with + badge), Lives, Restart, Sound */}
+      {/* Right: Hint (with + badge), Lives, Restart */}
       <div className="flex items-center gap-2">
         {/* Hint Button */}
         <button
