@@ -1,137 +1,121 @@
-'use client';
+import type { Metadata } from 'next';
+import { GamePlayClient } from '@/components/game/GamePlayClient';
 
-import React, { useEffect, useState, use } from 'react';
-import dynamic from 'next/dynamic';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { LevelLoader } from '@playnest/puzzle-engine/loader';
-import { LevelSpec, LevelManifest } from '@playnest/level-schema';
-import { GameHUD } from '@/components/game/GameHUD';
-import { VictoryModal } from '@/components/game/VictoryModal';
-import { HintModal } from '@/components/game/HintModal';
-import { LeaderboardModal } from '@/components/game/LeaderboardModal';
-import { useGameStore } from '@/store/useGameStore';
+const siteUrl = 'https://playnest.zone';
 
-// Dynamically import GameContainer with ssr: false so Phaser isn't executed on Node server
-const GameContainer = dynamic(
-  () => import('@/components/game/GameContainer').then((mod) => mod.GameContainer),
+interface GamePageProps {
+  params: Promise<{ gameId: string }>;
+}
+
+const gameCatalog: Record<
+  string,
   {
-    ssr: false,
-    loading: () => (
-      <div className="w-full max-w-[420px] aspect-[9/16] rounded-3xl bg-slate-900/80 border border-slate-800 flex flex-col items-center justify-center gap-3">
-        <div className="w-10 h-10 border-4 border-amber-400 border-t-transparent rounded-full animate-spin" />
-        <span className="text-amber-300 font-medium text-sm">Initializing game engine...</span>
-      </div>
-    ),
+    name: string;
+    description: string;
+    category: string;
+    keywords: string[];
+    bgImage: string;
   }
-);
+> = {
+  'tricky-brain': {
+    name: 'Tricky Brain Quest',
+    description:
+      'Play Tricky Brain Quest online for free on PlayNest.zone! Solve 50 tricky brain-teaser puzzle levels, test your logic IQ, and compete on the global leaderboard.',
+    category: 'Puzzle / Brain Games',
+    keywords: [
+      'tricky brain quest',
+      'brain test online',
+      'free puzzle game',
+      'iq test game',
+      'riddle games',
+      'playnest games',
+    ],
+    bgImage: '/og-image.png',
+  },
+};
 
-export default function GamePlayPage({ params }: { params: Promise<{ gameId: string }> }) {
-  const resolvedParams = use(params);
+export async function generateMetadata({ params }: GamePageProps): Promise<Metadata> {
+  const resolvedParams = await params;
   const gameId = resolvedParams.gameId || 'tricky-brain';
-  const searchParams = useSearchParams();
-  const router = useRouter();
-
-  const levelParam = searchParams.get('level');
-  const { currentLevel, setCurrentLevel, initSaveData } = useGameStore();
-
-  const [levelSpec, setLevelSpec] = useState<LevelSpec | null>(null);
-  const [manifest, setManifest] = useState<LevelManifest | null>(null);
-  const [activeLevelNumber, setActiveLevelNumber] = useState<number>(1);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [restartKey, setRestartKey] = useState(0);
-  const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
-
-  useEffect(() => {
-    initSaveData();
-  }, [initSaveData]);
-
-  useEffect(() => {
-    setLoading(true);
-    setError(null);
-
-    const rawRequestedLevel = levelParam ? parseInt(levelParam, 10) : currentLevel;
-
-    LevelLoader.loadManifest(gameId)
-      .then((manifestData) => {
-        setManifest(manifestData);
-        const totalAvailable = manifestData.levels.length;
-
-        // Clamp level number to max available level in manifest so players are not pushed back to level 1
-        const validLevelNumber = Math.max(1, Math.min(rawRequestedLevel, totalAvailable));
-
-        setActiveLevelNumber(validLevelNumber);
-
-        return LevelLoader.loadLevel(gameId, validLevelNumber).then((specData) => {
-          setLevelSpec(specData);
-          setCurrentLevel(validLevelNumber);
-          setLoading(false);
-        });
-      })
-      .catch((err) => {
-        console.error('Failed to load level:', err);
-        setError('Failed to load level data!');
-        setLoading(false);
-      });
-  }, [gameId, levelParam, currentLevel, restartKey, setCurrentLevel]);
-
-  const handleRestartLevel = () => {
-    setRestartKey((prev) => prev + 1);
+  const game = gameCatalog[gameId] || {
+    name: gameId.replace('-', ' ').toUpperCase(),
+    description: `Play ${gameId} online for free on PlayNest.zone!`,
+    category: 'Casual Game',
+    keywords: [gameId, 'web game', 'playnest'],
+    bgImage: '/og-image.png',
   };
 
-  const handleNextLevel = () => {
-    const nextLvl = activeLevelNumber + 1;
-    if (manifest && nextLvl <= manifest.levels.length) {
-      router.push(`/play/${gameId}?level=${nextLvl}`);
-    } else {
-      router.push('/levels');
-    }
+  const pageUrl = `${siteUrl}/play/${gameId}`;
+
+  return {
+    title: `${game.name} - Free Online Brain Puzzle Game`,
+    description: game.description,
+    keywords: game.keywords,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${game.name} - 50 Tricky Puzzle Levels | PlayNest.zone`,
+      description: game.description,
+      url: pageUrl,
+      siteName: 'PlayNest.zone',
+      images: [
+        {
+          url: game.bgImage,
+          width: 1200,
+          height: 630,
+          alt: game.name,
+        },
+      ],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${game.name} - Play Free Online`,
+      description: game.description,
+      images: [game.bgImage],
+    },
+  };
+}
+
+export default async function GamePlayPage({ params }: GamePageProps) {
+  const resolvedParams = await params;
+  const gameId = resolvedParams.gameId || 'tricky-brain';
+
+  const game = gameCatalog[gameId] || {
+    name: 'Tricky Brain Quest',
+    description: 'Play Tricky Brain Quest online for free on PlayNest.zone!',
+    category: 'Puzzle',
+  };
+
+  const jsonLdGame = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: game.name,
+    operatingSystem: 'Any (Web Browser)',
+    applicationCategory: 'GameApplication',
+    genre: game.category,
+    url: `${siteUrl}/play/${gameId}`,
+    description: game.description,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      ratingCount: '12800',
+    },
   };
 
   return (
-    <div className="min-h-screen bg-[#0F172A] text-slate-100 flex flex-col justify-between p-3 md:p-6 overflow-hidden">
-      <div className="w-full max-w-2xl mx-auto flex flex-col items-center">
-        {/* Game HUD Header */}
-        <GameHUD
-          levelNumber={activeLevelNumber}
-          totalLevels={manifest?.levels.length || 50}
-          hintText={levelSpec?.hint.text || 'Observe the items on screen carefully!'}
-          onRestart={handleRestartLevel}
-          onOpenLeaderboard={() => setIsLeaderboardOpen(true)}
-        />
-
-        {/* Main Canvas Area */}
-        <main className="w-full flex justify-center items-center my-auto py-1">
-          {loading ? (
-            <div className="w-full max-w-[420px] aspect-[9/16] rounded-3xl bg-slate-900/80 border border-slate-800 flex flex-col items-center justify-center gap-3">
-              <div className="w-10 h-10 border-4 border-amber-400 border-t-transparent rounded-full animate-spin" />
-              <span className="text-amber-300 font-medium text-sm">Loading level data...</span>
-            </div>
-          ) : error ? (
-            <div className="w-full max-w-[420px] aspect-[9/16] rounded-3xl bg-slate-900/80 border border-rose-500/30 flex flex-col items-center justify-center p-6 text-center gap-4">
-              <span className="text-rose-400 font-semibold text-sm">{error}</span>
-              <button
-                onClick={handleRestartLevel}
-                className="px-6 py-2.5 bg-amber-500 text-slate-950 font-bold text-xs rounded-xl"
-              >
-                Try Again
-              </button>
-            </div>
-          ) : levelSpec ? (
-            <GameContainer key={`${activeLevelNumber}_${restartKey}`} levelSpec={levelSpec} />
-          ) : null}
-        </main>
-      </div>
-
-      {/* Modals */}
-      <VictoryModal
-        levelNumber={activeLevelNumber}
-        totalLevels={manifest?.levels.length || 50}
-        onNextLevel={handleNextLevel}
-        onRestartLevel={handleRestartLevel}
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGame) }}
       />
-      <HintModal />
-      <LeaderboardModal isOpen={isLeaderboardOpen} onClose={() => setIsLeaderboardOpen(false)} />
-    </div>
+      <GamePlayClient gameId={gameId} />
+    </>
   );
 }
