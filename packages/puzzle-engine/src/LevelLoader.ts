@@ -9,7 +9,7 @@ export class LevelLoader {
       return this.manifestCache.get(gameId)!;
     }
 
-    const response = await fetch(`/levels/manifest.json`);
+    const response = await fetch(`/levels/manifest.json?v=${Date.now()}`, { cache: 'no-cache' });
     if (!response.ok) {
       throw new Error(`Failed to load level manifest for game ${gameId}`);
     }
@@ -27,15 +27,14 @@ export class LevelLoader {
     }
 
     const manifest = await this.loadManifest(gameId);
-    const levelInfo = manifest.levels.find((l) => l.levelNumber === levelNumber);
+    let levelInfo = manifest.levels.find((l) => l.levelNumber === levelNumber);
 
-    if (!levelInfo) {
-      throw new Error(`Level ${levelNumber} not found in manifest for game ${gameId}`);
-    }
+    // Fallback if levelInfo is missing
+    const fileName = levelInfo ? levelInfo.file : `level-${String(levelNumber).padStart(3, '0')}.json`;
 
-    const response = await fetch(`/levels/${levelInfo.file}`);
+    const response = await fetch(`/levels/${fileName}?v=${Date.now()}`, { cache: 'no-cache' });
     if (!response.ok) {
-      throw new Error(`Failed to fetch level file ${levelInfo.file}`);
+      throw new Error(`Failed to fetch level file ${fileName}`);
     }
 
     const rawData = await response.json();

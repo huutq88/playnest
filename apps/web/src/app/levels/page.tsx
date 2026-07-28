@@ -27,12 +27,12 @@ export default function LevelsPage() {
       });
   }, [initSaveData]);
 
-  const totalLevelsCount = manifest?.levels.length || 50;
+  const totalLevelsCount = 50;
   const maxUnlockedLevel = Math.max(1, ...completedLevels, currentLevel);
   const levelsList = Array.from({ length: totalLevelsCount }, (_, i) => i + 1);
 
   return (
-    <div className="min-h-screen bg-[#0D0F23] text-slate-100 flex flex-col justify-start items-center p-3 md:p-6 overflow-y-auto selection:bg-purple-600 selection:text-white relative">
+    <div className="min-h-screen bg-[#0D0F23] text-slate-100 flex flex-col justify-start items-center p-3 sm:p-6 overflow-y-auto selection:bg-purple-600 selection:text-white relative">
       {/* Background Ambient Glow */}
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[600px] h-96 bg-gradient-to-b from-blue-600/20 via-purple-600/15 to-transparent blur-3xl pointer-events-none" />
 
@@ -74,65 +74,58 @@ export default function LevelsPage() {
             <p className="text-slate-400 text-xs font-medium">50 Tricky Brain Quest Puzzles Unlocked</p>
           </div>
 
-          {/* Level Buttons Grid (3 Columns, Smooth Scrolling) */}
-          {loading ? (
-            <div className="flex justify-center py-20">
-              <div className="w-10 h-10 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
-            </div>
-          ) : (
-            <div className="grid grid-cols-3 gap-3 sm:gap-4 py-2">
-              {levelsList.map((num) => {
-                const manifestLvl = manifest?.levels.find((l) => l.levelNumber === num);
-                const isAvailableInManifest = !!manifestLvl;
-                const isUnlocked = num <= maxUnlockedLevel && isAvailableInManifest;
-                const isCompleted = completedLevels.includes(num);
-                const isCurrent = num === currentLevel && isAvailableInManifest;
+          {/* Level Buttons Grid (3 Columns, 50 Levels Total) */}
+          <div className="grid grid-cols-3 gap-3 sm:gap-4 py-2">
+            {levelsList.map((num) => {
+              const manifestLvl = manifest?.levels.find((l) => l.levelNumber === num);
+              const isUnlocked = num <= maxUnlockedLevel;
+              const isCompleted = completedLevels.includes(num);
+              const isCurrent = num === currentLevel;
 
-                return (
-                  <div key={num} className="flex flex-col items-center gap-1.5">
-                    {isUnlocked ? (
-                      <Link
-                        href={`/play/tricky-brain?level=${num}`}
-                        className={`w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex flex-col items-center justify-center text-xl font-black transition-all shadow-xl active:scale-95 border-2 cursor-pointer ${
-                          isCurrent
-                            ? 'bg-gradient-to-tr from-purple-600 via-pink-500 to-amber-500 text-white border-pink-400 shadow-purple-500/50 animate-pulse'
-                            : isCompleted
-                            ? 'bg-gradient-to-b from-purple-700 via-purple-800 to-indigo-900 text-white border-purple-400/50 hover:border-purple-300'
-                            : 'bg-slate-800 text-slate-200 border-slate-700 hover:border-purple-400'
-                        }`}
-                      >
-                        <span className="text-2xl font-black">{num}</span>
-                      </Link>
-                    ) : (
-                      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-slate-950/80 border border-slate-800/80 flex items-center justify-center text-slate-600 shadow-inner">
-                        <Lock className="w-6 h-6 text-slate-600" />
-                      </div>
-                    )}
-
-                    {/* 3 Stars Rating */}
-                    <div className="flex items-center gap-0.5 pt-0.5">
-                      {[1, 2, 3].map((starIdx) => (
-                        <Star
-                          key={starIdx}
-                          className={`w-3 h-3 ${
-                            isCompleted
-                              ? 'fill-amber-400 text-amber-400'
-                              : isUnlocked && starIdx <= 2
-                              ? 'fill-amber-400/80 text-amber-400/80'
-                              : 'text-slate-700 fill-slate-800'
-                          }`}
-                        />
-                      ))}
+              return (
+                <div key={num} className="flex flex-col items-center gap-1.5">
+                  {isUnlocked ? (
+                    <Link
+                      href={`/play/tricky-brain?level=${num}`}
+                      className={`w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex flex-col items-center justify-center text-xl font-black transition-all shadow-xl active:scale-95 border-2 cursor-pointer ${
+                        isCurrent
+                          ? 'bg-gradient-to-tr from-purple-600 via-pink-500 to-amber-500 text-white border-pink-400 shadow-purple-500/50 animate-pulse'
+                          : isCompleted
+                          ? 'bg-gradient-to-b from-purple-700 via-purple-800 to-indigo-900 text-white border-purple-400/50 hover:border-purple-300'
+                          : 'bg-slate-800 text-slate-200 border-slate-700 hover:border-purple-400'
+                      }`}
+                    >
+                      <span className="text-2xl font-black">{num}</span>
+                    </Link>
+                  ) : (
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-slate-950/80 border border-slate-800/80 flex items-center justify-center text-slate-600 shadow-inner">
+                      <Lock className="w-6 h-6 text-slate-600" />
                     </div>
+                  )}
 
-                    <span className="text-[10px] font-semibold text-slate-400 text-center truncate max-w-[90px] leading-tight">
-                      {manifestLvl?.title || `Level ${num}`}
-                    </span>
+                  {/* 3 Stars Rating */}
+                  <div className="flex items-center gap-0.5 pt-0.5">
+                    {[1, 2, 3].map((starIdx) => (
+                      <Star
+                        key={starIdx}
+                        className={`w-3 h-3 ${
+                          isCompleted
+                            ? 'fill-amber-400 text-amber-400'
+                            : isUnlocked && starIdx <= 2
+                            ? 'fill-amber-400/80 text-amber-400/80'
+                            : 'text-slate-700 fill-slate-800'
+                        }`}
+                      />
+                    ))}
                   </div>
-                );
-              })}
-            </div>
-          )}
+
+                  <span className="text-[10px] font-semibold text-slate-400 text-center truncate max-w-[90px] leading-tight">
+                    {manifestLvl?.title || `Level ${num}`}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
 
           {/* Footer inside mobile frame */}
           <div className="text-center text-xs text-slate-500 pt-4 border-t border-slate-800/60">
