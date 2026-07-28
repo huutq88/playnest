@@ -1,0 +1,58 @@
+{
+  "id": "tricky-brain-044",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Charge Smartphone #2",
+  "question": {
+    "text": "Plug the charger into the phone to charge the battery!",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#F1F5F9"
+  },
+  "objects": [
+    {
+      "id": "phone",
+      "type": "sprite",
+      "asset": "phone_empty",
+      "position": { "x": 0.3, "y": 0.55 },
+      "scale": 1.3,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 10
+    },
+    {
+      "id": "charger",
+      "type": "sprite",
+      "asset": "charger",
+      "position": { "x": 0.75, "y": 0.55 },
+      "scale": 1.4,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 15
+    }
+  ],
+  "variables": { "charged": false },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "charger",
+      "condition": {
+        "type": "overlap",
+        "target": "phone",
+        "distanceThreshold": 85
+      },
+      "actions": [
+        { "type": "changeSprite", "target": "phone", "asset": "phone_charged" },
+        { "type": "setVariable", "key": "charged", "value": true },
+        { "type": "playAnimation", "target": "phone", "animation": "bounce" },
+        { "type": "completeLevel" }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "Drag the charger plug directly onto the smartphone port to charge it!",
+    "highlightObjectId": "charger"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "id": "tricky-brain-037",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Help the Cat Catch Fish",
+  "question": {
+    "text": "Feed the cat using the fish from the ocean!",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#F0F9FF"
+  },
+  "objects": [
+    {
+      "id": "cat",
+      "type": "sprite",
+      "asset": "cat_hungry",
+      "position": { "x": 0.3, "y": 0.6 },
+      "scale": 1.4,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 10
+    },
+    {
+      "id": "fish",
+      "type": "sprite",
+      "asset": "fish",
+      "position": { "x": 0.75, "y": 0.6 },
+      "scale": 1.3,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 15
+    }
+  ],
+  "variables": { "fed": false },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "fish",
+      "condition": {
+        "type": "overlap",
+        "target": "cat",
+        "distanceThreshold": 85
+      },
+      "actions": [
+        { "type": "changeSprite", "target": "cat", "asset": "cat_happy" },
+        { "type": "hideObject", "target": "fish" },
+        { "type": "setVariable", "key": "fed", "value": true },
+        { "type": "playAnimation", "target": "cat", "animation": "bounce" },
+        { "type": "completeLevel" }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "Drag the blue fish directly into the hungry cat's mouth to feed it!",
+    "highlightObjectId": "fish"
+  }
+}

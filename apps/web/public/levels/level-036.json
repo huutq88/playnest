@@ -1,0 +1,69 @@
+{
+  "id": "tricky-brain-036",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Open Mystery Chest #3",
+  "question": {
+    "text": "Find the key inside the bush to open the chest!",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#FFF7ED"
+  },
+  "objects": [
+    {
+      "id": "chest",
+      "type": "sprite",
+      "asset": "chest",
+      "position": { "x": 0.3, "y": 0.6 },
+      "scale": 1.4,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 10
+    },
+    {
+      "id": "key",
+      "type": "sprite",
+      "asset": "key",
+      "position": { "x": 0.75, "y": 0.6 },
+      "scale": 1.2,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 15
+    },
+    {
+      "id": "bush",
+      "type": "sprite",
+      "asset": "bush",
+      "position": { "x": 0.75, "y": 0.6 },
+      "scale": 1.4,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 25
+    }
+  ],
+  "variables": { "opened": false },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "key",
+      "condition": {
+        "type": "overlap",
+        "target": "chest",
+        "distanceThreshold": 85
+      },
+      "actions": [
+        { "type": "changeSprite", "target": "chest", "asset": "box_open" },
+        { "type": "hideObject", "target": "key" },
+        { "type": "setVariable", "key": "opened", "value": true },
+        { "type": "playAnimation", "target": "chest", "animation": "bounce" },
+        { "type": "completeLevel" }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "Move the green bush to uncover the hidden key, then drag the key to the chest!",
+    "highlightObjectId": "bush"
+  }
+}

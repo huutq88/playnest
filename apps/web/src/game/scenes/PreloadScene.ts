@@ -15,8 +15,7 @@ export class PreloadScene extends Phaser.Scene {
   }
 
   private createFallbackTextures(): void {
-    // --- Levels 1-5 textures ---
-    // 1. Cat Hungry
+    // 1-5
     const catGraphic = this.make.graphics({ x: 0, y: 0 });
     catGraphic.fillStyle(0xfb923c, 1);
     catGraphic.fillCircle(60, 60, 50);
@@ -34,7 +33,6 @@ export class PreloadScene extends Phaser.Scene {
     catGraphic.generateTexture('cat_hungry', 120, 120);
     catGraphic.destroy();
 
-    // 2. Cat Happy
     const catHappy = this.make.graphics({ x: 0, y: 0 });
     catHappy.fillStyle(0xfb923c, 1);
     catHappy.fillCircle(60, 60, 50);
@@ -47,7 +45,6 @@ export class PreloadScene extends Phaser.Scene {
     catHappy.generateTexture('cat_happy', 120, 120);
     catHappy.destroy();
 
-    // 3. Fish
     const fishGraphic = this.make.graphics({ x: 0, y: 0 });
     fishGraphic.fillStyle(0x38bdf8, 1);
     fishGraphic.fillEllipse(50, 35, 40, 25);
@@ -59,7 +56,6 @@ export class PreloadScene extends Phaser.Scene {
     fishGraphic.generateTexture('fish', 110, 70);
     fishGraphic.destroy();
 
-    // 4. Box Close & Open
     const boxClosed = this.make.graphics({ x: 0, y: 0 });
     boxClosed.fillStyle(0xa16207, 1);
     boxClosed.fillRect(10, 20, 100, 80);
@@ -80,7 +76,6 @@ export class PreloadScene extends Phaser.Scene {
     boxOpen.generateTexture('box_open', 120, 110);
     boxOpen.destroy();
 
-    // Key & Lock
     const keyGraphic = this.make.graphics({ x: 0, y: 0 });
     keyGraphic.fillStyle(0xeab308, 1);
     keyGraphic.fillCircle(25, 25, 18);
@@ -111,7 +106,7 @@ export class PreloadScene extends Phaser.Scene {
     bushGraphic.generateTexture('bush', 150, 100);
     bushGraphic.destroy();
 
-    // --- Levels 6-15 textures ---
+    // 6-15
     const sunGraphic = this.make.graphics({ x: 0, y: 0 });
     sunGraphic.fillStyle(0xf59e0b, 1);
     sunGraphic.fillCircle(60, 60, 40);
@@ -333,21 +328,18 @@ export class PreloadScene extends Phaser.Scene {
     chestGraphic.generateTexture('chest', 100, 90);
     chestGraphic.destroy();
 
-    // --- NEW Levels 16-25 textures ---
-    // 23. Glass & Water
+    // 16-25
     const glassGraphic = this.make.graphics({ x: 0, y: 0 });
     glassGraphic.lineStyle(6, 0x94a3b8, 0.9);
     glassGraphic.lineBetween(20, 10, 30, 100);
     glassGraphic.lineBetween(30, 100, 70, 100);
     glassGraphic.lineBetween(70, 100, 80, 10);
     glassGraphic.generateTexture('glass_empty', 100, 110);
-    
     glassGraphic.fillStyle(0x38bdf8, 0.85);
     glassGraphic.fillRect(32, 40, 36, 58);
     glassGraphic.generateTexture('glass_full', 100, 110);
     glassGraphic.destroy();
 
-    // 24. Sheep & Wolf
     const sheepGraphic = this.make.graphics({ x: 0, y: 0 });
     sheepGraphic.fillStyle(0xf8fafc, 1);
     sheepGraphic.fillCircle(50, 50, 35);
@@ -377,14 +369,12 @@ export class PreloadScene extends Phaser.Scene {
     fenceGraphic.generateTexture('fence', 90, 90);
     fenceGraphic.destroy();
 
-    // 25. TV & Remote
     const tvGraphic = this.make.graphics({ x: 0, y: 0 });
     tvGraphic.fillStyle(0x0f172a, 1);
     tvGraphic.fillRoundedRect(10, 10, 120, 80, 8);
     tvGraphic.fillStyle(0x334155, 1);
     tvGraphic.fillRect(18, 18, 104, 64);
     tvGraphic.generateTexture('tv_off', 140, 100);
-
     tvGraphic.fillStyle(0x0284c7, 1);
     tvGraphic.fillRect(18, 18, 104, 64);
     tvGraphic.fillStyle(0xfde047, 1);
@@ -411,7 +401,6 @@ export class PreloadScene extends Phaser.Scene {
     batteryGraphic.generateTexture('battery', 45, 70);
     batteryGraphic.destroy();
 
-    // 26. Boy & River & Bridge
     const boyGraphic = this.make.graphics({ x: 0, y: 0 });
     boyGraphic.fillStyle(0xf87171, 1);
     boyGraphic.fillCircle(30, 25, 15);
@@ -430,12 +419,10 @@ export class PreloadScene extends Phaser.Scene {
     plankGraphic.fillStyle(0x854d0e, 1);
     plankGraphic.fillRect(5, 10, 110, 25);
     plankGraphic.generateTexture('plank', 120, 45);
-    
     plankGraphic.fillRect(5, 5, 230, 35);
     plankGraphic.generateTexture('bridge_fixed', 240, 45);
     plankGraphic.destroy();
 
-    // 27. Frog & Fly & Pond
     const frogGraphic = this.make.graphics({ x: 0, y: 0 });
     frogGraphic.fillStyle(0x16a34a, 1);
     frogGraphic.fillEllipse(40, 40, 30, 25);
@@ -462,7 +449,6 @@ export class PreloadScene extends Phaser.Scene {
     pondGraphic.generateTexture('pond', 160, 100);
     pondGraphic.destroy();
 
-    // 28. Vault & Dial
     const vaultGraphic = this.make.graphics({ x: 0, y: 0 });
     vaultGraphic.fillStyle(0x334155, 1);
     vaultGraphic.fillRoundedRect(10, 10, 110, 110, 12);
@@ -471,7 +457,6 @@ export class PreloadScene extends Phaser.Scene {
     vaultGraphic.fillStyle(0x0f172a, 1);
     vaultGraphic.fillCircle(65, 65, 18);
     vaultGraphic.generateTexture('vault_closed', 130, 130);
-
     vaultGraphic.fillStyle(0x22c55e, 1);
     vaultGraphic.fillRect(20, 20, 90, 90);
     vaultGraphic.fillStyle(0xeab308, 1);
@@ -479,7 +464,6 @@ export class PreloadScene extends Phaser.Scene {
     vaultGraphic.generateTexture('vault_open', 130, 130);
     vaultGraphic.destroy();
 
-    // 29. Alarm Clock
     const alarmGraphic = this.make.graphics({ x: 0, y: 0 });
     alarmGraphic.fillStyle(0xd97706, 1);
     alarmGraphic.fillCircle(50, 55, 35);
@@ -491,14 +475,12 @@ export class PreloadScene extends Phaser.Scene {
     alarmGraphic.lineBetween(50, 55, 50, 38);
     alarmGraphic.lineBetween(50, 55, 65, 55);
     alarmGraphic.generateTexture('alarm_ringing', 100, 100);
-
     alarmGraphic.clear();
     alarmGraphic.fillStyle(0x64748b, 1);
     alarmGraphic.fillCircle(50, 55, 35);
     alarmGraphic.generateTexture('alarm_stopped', 100, 100);
     alarmGraphic.destroy();
 
-    // 30. Solar Panel & Generator
     const solarGraphic = this.make.graphics({ x: 0, y: 0 });
     solarGraphic.fillStyle(0x1e3a8a, 1);
     solarGraphic.fillRect(10, 10, 100, 60);
@@ -515,18 +497,15 @@ export class PreloadScene extends Phaser.Scene {
     bulbGraphic.fillCircle(30, 30, 20);
     bulbGraphic.fillRect(23, 45, 14, 15);
     bulbGraphic.generateTexture('bulb_off', 60, 70);
-
     bulbGraphic.fillStyle(0xfacc15, 1);
     bulbGraphic.fillCircle(30, 30, 20);
     bulbGraphic.generateTexture('bulb_on', 60, 70);
     bulbGraphic.destroy();
 
-    // 31. Coins & Magnet
     const coinGraphic = this.make.graphics({ x: 0, y: 0 });
     coinGraphic.fillStyle(0x94a3b8, 1);
     coinGraphic.fillCircle(25, 25, 20);
     coinGraphic.generateTexture('coin_fake', 50, 50);
-
     coinGraphic.fillStyle(0xeab308, 1);
     coinGraphic.fillCircle(25, 25, 20);
     coinGraphic.fillStyle(0xfef08a, 1);
@@ -542,7 +521,6 @@ export class PreloadScene extends Phaser.Scene {
     magnetGraphic.generateTexture('magnet', 80, 75);
     magnetGraphic.destroy();
 
-    // 32. Grand Trophy
     const trophyBase = this.make.graphics({ x: 0, y: 0 });
     trophyBase.fillStyle(0x78350f, 1);
     trophyBase.fillRect(10, 40, 80, 30);
@@ -561,7 +539,6 @@ export class PreloadScene extends Phaser.Scene {
     trophyStar.fillTriangle(30, 5, 15, 45, 45, 45);
     trophyStar.fillTriangle(30, 55, 15, 15, 45, 15);
     trophyStar.generateTexture('trophy_star', 60, 60);
-
     trophyStar.clear();
     trophyStar.fillStyle(0xeab308, 1);
     trophyStar.fillRect(20, 60, 80, 30);
@@ -570,6 +547,123 @@ export class PreloadScene extends Phaser.Scene {
     trophyStar.fillCircle(60, 20, 15);
     trophyStar.generateTexture('trophy_full', 120, 100);
     trophyStar.destroy();
+
+    // --- NEW Levels 26-50 textures ---
+    // Plant
+    const plantGraphic = this.make.graphics({ x: 0, y: 0 });
+    plantGraphic.fillStyle(0x78350f, 1);
+    plantGraphic.fillRect(35, 60, 30, 30);
+    plantGraphic.fillStyle(0x15803d, 1);
+    plantGraphic.fillCircle(50, 40, 20);
+    plantGraphic.generateTexture('plant_wilted', 100, 100);
+    plantGraphic.fillStyle(0xef4444, 1);
+    plantGraphic.fillCircle(50, 20, 15);
+    plantGraphic.generateTexture('plant_blooming', 100, 100);
+    plantGraphic.destroy();
+
+    // Seesaw & Animals
+    const seesawGraphic = this.make.graphics({ x: 0, y: 0 });
+    seesawGraphic.fillStyle(0x475569, 1);
+    seesawGraphic.fillTriangle(75, 70, 50, 110, 100, 110);
+    seesawGraphic.fillStyle(0x94a3b8, 1);
+    seesawGraphic.fillRect(10, 60, 130, 15);
+    seesawGraphic.generateTexture('seesaw', 150, 120);
+    seesawGraphic.destroy();
+
+    // Pan & Cooking
+    const panGraphic = this.make.graphics({ x: 0, y: 0 });
+    panGraphic.fillStyle(0x1e293b, 1);
+    panGraphic.fillCircle(50, 50, 40);
+    panGraphic.fillRect(90, 43, 50, 14);
+    panGraphic.generateTexture('pan_empty', 150, 100);
+    panGraphic.fillStyle(0xffffff, 1);
+    panGraphic.fillCircle(50, 50, 20);
+    panGraphic.fillStyle(0xf59e0b, 1);
+    panGraphic.fillCircle(50, 50, 10);
+    panGraphic.generateTexture('pan_fried', 150, 100);
+    panGraphic.destroy();
+
+    // Gate
+    const gateGraphic = this.make.graphics({ x: 0, y: 0 });
+    gateGraphic.fillStyle(0x334155, 1);
+    gateGraphic.fillRect(10, 10, 15, 100);
+    gateGraphic.fillRect(95, 10, 15, 100);
+    gateGraphic.fillRect(25, 20, 70, 10);
+    gateGraphic.fillRect(25, 50, 70, 10);
+    gateGraphic.fillRect(25, 80, 70, 10);
+    gateGraphic.generateTexture('gate_locked', 120, 120);
+    gateGraphic.clear();
+    gateGraphic.fillStyle(0x22c55e, 1);
+    gateGraphic.fillRect(10, 10, 15, 100);
+    gateGraphic.fillRect(105, 10, 15, 100);
+    gateGraphic.generateTexture('gate_open', 130, 120);
+    gateGraphic.destroy();
+
+    // Bunny & Carrot
+    const bunnyGraphic = this.make.graphics({ x: 0, y: 0 });
+    bunnyGraphic.fillStyle(0xf8fafc, 1);
+    bunnyGraphic.fillCircle(40, 55, 30);
+    bunnyGraphic.fillEllipse(30, 18, 8, 20);
+    bunnyGraphic.fillEllipse(50, 18, 8, 20);
+    bunnyGraphic.fillStyle(0xf43f5e, 1);
+    bunnyGraphic.fillCircle(40, 55, 4);
+    bunnyGraphic.generateTexture('bunny', 80, 90);
+    bunnyGraphic.destroy();
+
+    const carrotGraphic = this.make.graphics({ x: 0, y: 0 });
+    carrotGraphic.fillStyle(0xea580c, 1);
+    carrotGraphic.fillTriangle(25, 75, 10, 15, 40, 15);
+    carrotGraphic.fillStyle(0x16a34a, 1);
+    carrotGraphic.fillCircle(25, 10, 8);
+    carrotGraphic.generateTexture('carrot', 50, 85);
+    carrotGraphic.destroy();
+
+    // Cake & Fan
+    const cakeGraphic = this.make.graphics({ x: 0, y: 0 });
+    cakeGraphic.fillStyle(0xf472b6, 1);
+    cakeGraphic.fillRect(15, 40, 90, 50);
+    cakeGraphic.fillStyle(0xfbcfe8, 1);
+    cakeGraphic.fillRect(10, 30, 100, 15);
+    cakeGraphic.generateTexture('cake', 120, 100);
+    cakeGraphic.destroy();
+
+    const fanGraphic = this.make.graphics({ x: 0, y: 0 });
+    fanGraphic.lineStyle(6, 0x0284c7, 1);
+    fanGraphic.strokeCircle(40, 40, 30);
+    fanGraphic.fillStyle(0x38bdf8, 1);
+    fanGraphic.fillCircle(40, 40, 10);
+    fanGraphic.fillRect(35, 70, 10, 30);
+    fanGraphic.generateTexture('fan', 80, 110);
+    fanGraphic.destroy();
+
+    // Crown Champion
+    const crownGraphic = this.make.graphics({ x: 0, y: 0 });
+    crownGraphic.fillStyle(0xeab308, 1);
+    crownGraphic.fillTriangle(60, 20, 10, 70, 110, 70);
+    crownGraphic.fillRect(10, 70, 100, 15);
+    crownGraphic.fillStyle(0xef4444, 1);
+    crownGraphic.fillCircle(60, 20, 8);
+    crownGraphic.fillStyle(0x3b82f6, 1);
+    crownGraphic.fillCircle(25, 45, 7);
+    crownGraphic.fillStyle(0x22c55e, 1);
+    crownGraphic.fillCircle(95, 45, 7);
+    crownGraphic.generateTexture('crown_master', 120, 95);
+    crownGraphic.destroy();
+
+    // Gems
+    const gemRed = this.make.graphics({ x: 0, y: 0 });
+    gemRed.fillStyle(0xef4444, 1);
+    gemRed.fillTriangle(25, 5, 5, 25, 45, 25);
+    gemRed.fillTriangle(25, 45, 5, 25, 45, 25);
+    gemRed.generateTexture('gem_red', 50, 50);
+    gemRed.destroy();
+
+    const gemBlue = this.make.graphics({ x: 0, y: 0 });
+    gemBlue.fillStyle(0x3b82f6, 1);
+    gemBlue.fillTriangle(25, 5, 5, 25, 45, 25);
+    gemBlue.fillTriangle(25, 45, 5, 25, 45, 25);
+    gemBlue.generateTexture('gem_blue', 50, 50);
+    gemBlue.destroy();
 
     // Default Fallback Box
     const defaultBox = this.make.graphics({ x: 0, y: 0 });

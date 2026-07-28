@@ -2,155 +2,55 @@
   "gameId": "tricky-brain",
   "title": "Tricky Brain Quest",
   "levels": [
-    {
-      "id": "tricky-brain-001",
-      "levelNumber": 1,
-      "title": "Feed the Hungry Cat",
-      "file": "level-001.json"
-    },
-    {
-      "id": "tricky-brain-002",
-      "levelNumber": 2,
-      "title": "Open the Mystery Box",
-      "file": "level-002.json"
-    },
-    {
-      "id": "tricky-brain-003",
-      "levelNumber": 3,
-      "title": "Find the Hidden Key",
-      "file": "level-003.json"
-    },
-    {
-      "id": "tricky-brain-004",
-      "levelNumber": 4,
-      "title": "Balance the Scale",
-      "file": "level-004.json"
-    },
-    {
-      "id": "tricky-brain-005",
-      "levelNumber": 5,
-      "title": "Extinguish the Fire",
-      "file": "level-005.json"
-    },
-    {
-      "id": "tricky-brain-006",
-      "levelNumber": 6,
-      "title": "Make the Tree Grow Apples",
-      "file": "level-006.json"
-    },
-    {
-      "id": "tricky-brain-007",
-      "levelNumber": 7,
-      "title": "Hatch the Golden Egg",
-      "file": "level-007.json"
-    },
-    {
-      "id": "tricky-brain-008",
-      "levelNumber": 8,
-      "title": "Fix the Sports Car",
-      "file": "level-008.json"
-    },
-    {
-      "id": "tricky-brain-009",
-      "levelNumber": 9,
-      "title": "Light Up the Room",
-      "file": "level-009.json"
-    },
-    {
-      "id": "tricky-brain-010",
-      "levelNumber": 10,
-      "title": "Melt the Frozen Diamond",
-      "file": "level-010.json"
-    },
-    {
-      "id": "tricky-brain-011",
-      "levelNumber": 11,
-      "title": "Wake Up the Sleeping Owl",
-      "file": "level-011.json"
-    },
-    {
-      "id": "tricky-brain-012",
-      "levelNumber": 12,
-      "title": "Charge the Smartphone",
-      "file": "level-012.json"
-    },
-    {
-      "id": "tricky-brain-013",
-      "levelNumber": 13,
-      "title": "Open the Treasure Chest",
-      "file": "level-013.json"
-    },
-    {
-      "id": "tricky-brain-014",
-      "levelNumber": 14,
-      "title": "Feed the Hungry Cat Again",
-      "file": "level-014.json"
-    },
-    {
-      "id": "tricky-brain-015",
-      "levelNumber": 15,
-      "title": "Master Puzzle Escape",
-      "file": "level-015.json"
-    },
-    {
-      "id": "tricky-brain-016",
-      "levelNumber": 16,
-      "title": "Fill the Glass with Water",
-      "file": "level-016.json"
-    },
-    {
-      "id": "tricky-brain-017",
-      "levelNumber": 17,
-      "title": "Protect the Sheep from Wolf",
-      "file": "level-017.json"
-    },
-    {
-      "id": "tricky-brain-018",
-      "levelNumber": 18,
-      "title": "Turn ON the Television",
-      "file": "level-018.json"
-    },
-    {
-      "id": "tricky-brain-019",
-      "levelNumber": 19,
-      "title": "Cross the Deep River",
-      "file": "level-019.json"
-    },
-    {
-      "id": "tricky-brain-020",
-      "levelNumber": 20,
-      "title": "Help Frog Catch the Fly",
-      "file": "level-020.json"
-    },
-    {
-      "id": "tricky-brain-021",
-      "levelNumber": 21,
-      "title": "Unlock the Bank Vault",
-      "file": "level-021.json"
-    },
-    {
-      "id": "tricky-brain-022",
-      "levelNumber": 22,
-      "title": "Silence the Loud Alarm Clock",
-      "file": "level-022.json"
-    },
-    {
-      "id": "tricky-brain-023",
-      "levelNumber": 23,
-      "title": "Solar Energy Generator",
-      "file": "level-023.json"
-    },
-    {
-      "id": "tricky-brain-024",
-      "levelNumber": 24,
-      "title": "Find the Real Gold Coin",
-      "file": "level-024.json"
-    },
-    {
-      "id": "tricky-brain-025",
-      "levelNumber": 25,
-      "title": "Assemble the Grand Trophy",
-      "file": "level-025.json"
-    }
+    { "id": "tricky-brain-001", "levelNumber": 1, "title": "Feed the Hungry Cat", "file": "level-001.json" },
+    { "id": "tricky-brain-002", "levelNumber": 2, "title": "Open the Mystery Box", "file": "level-002.json" },
+    { "id": "tricky-brain-003", "levelNumber": 3, "title": "Find the Hidden Key", "file": "level-003.json" },
+    { "id": "tricky-brain-004", "levelNumber": 4, "title": "Balance the Scale", "file": "level-004.json" },
+    { "id": "tricky-brain-005", "levelNumber": 5, "title": "Extinguish the Fire", "file": "level-005.json" },
+    { "id": "tricky-brain-006", "levelNumber": 6, "title": "Make the Tree Grow Apples", "file": "level-006.json" },
+    { "id": "tricky-brain-007", "levelNumber": 7, "title": "Hatch the Golden Egg", "file": "level-007.json" },
+    { "id": "tricky-brain-008", "levelNumber": 8, "title": "Fix the Sports Car", "file": "level-008.json" },
+    { "id": "tricky-brain-009", "levelNumber": 9, "title": "Light Up the Room", "file": "level-009.json" },
+    { "id": "tricky-brain-010", "levelNumber": 10, "title": "Melt the Frozen Diamond", "file": "level-010.json" },
+    { "id": "tricky-brain-011", "levelNumber": 11, "title": "Wake Up the Sleeping Owl", "file": "level-011.json" },
+    { "id": "tricky-brain-012", "levelNumber": 12, "title": "Charge the Smartphone", "file": "level-012.json" },
+    { "id": "tricky-brain-013", "levelNumber": 13, "title": "Open the Treasure Chest", "file": "level-013.json" },
+    { "id": "tricky-brain-014", "levelNumber": 14, "title": "Feed the Hungry Cat Again", "file": "level-014.json" },
+    { "id": "tricky-brain-015", "levelNumber": 15, "title": "Master Puzzle Escape", "file": "level-015.json" },
+    { "id": "tricky-brain-016", "levelNumber": 16, "title": "Fill the Glass with Water", "file": "level-016.json" },
+    { "id": "tricky-brain-017", "levelNumber": 17, "title": "Protect the Sheep from Wolf", "file": "level-017.json" },
+    { "id": "tricky-brain-018", "levelNumber": 18, "title": "Turn ON the Television", "file": "level-018.json" },
+    { "id": "tricky-brain-019", "levelNumber": 19, "title": "Cross the Deep River", "file": "level-019.json" },
+    { "id": "tricky-brain-020", "levelNumber": 20, "title": "Help Frog Catch the Fly", "file": "level-020.json" },
+    { "id": "tricky-brain-021", "levelNumber": 21, "title": "Unlock the Bank Vault", "file": "level-021.json" },
+    { "id": "tricky-brain-022", "levelNumber": 22, "title": "Silence the Loud Alarm Clock", "file": "level-022.json" },
+    { "id": "tricky-brain-023", "levelNumber": 23, "title": "Solar Energy Generator", "file": "level-023.json" },
+    { "id": "tricky-brain-024", "levelNumber": 24, "title": "Find the Real Gold Coin", "file": "level-024.json" },
+    { "id": "tricky-brain-025", "levelNumber": 25, "title": "Assemble the Grand Trophy", "file": "level-025.json" },
+    { "id": "tricky-brain-026", "levelNumber": 26, "title": "Save the Wilting Plant", "file": "level-026.json" },
+    { "id": "tricky-brain-027", "levelNumber": 27, "title": "Balance the Heavy Seesaw", "file": "level-027.json" },
+    { "id": "tricky-brain-028", "levelNumber": 28, "title": "Cook a Fried Egg", "file": "level-028.json" },
+    { "id": "tricky-brain-029", "levelNumber": 29, "title": "Escape the Iron Gate", "file": "level-029.json" },
+    { "id": "tricky-brain-030", "levelNumber": 30, "title": "Feed the Hungry Bunny", "file": "level-030.json" },
+    { "id": "tricky-brain-031", "levelNumber": 31, "title": "Blow Out Birthday Candle", "file": "level-031.json" },
+    { "id": "tricky-brain-032", "levelNumber": 32, "title": "Crown the Kingdom King", "file": "level-032.json" },
+    { "id": "tricky-brain-033", "levelNumber": 33, "title": "Make the Bird Fly Away", "file": "level-033.json" },
+    { "id": "tricky-brain-034", "levelNumber": 34, "title": "Melt Ice to Find Key", "file": "level-034.json" },
+    { "id": "tricky-brain-035", "levelNumber": 35, "title": "Turn Off the Bright Sun", "file": "level-035.json" },
+    { "id": "tricky-brain-036", "levelNumber": 36, "title": "Open Mystery Chest #3", "file": "level-036.json" },
+    { "id": "tricky-brain-037", "levelNumber": 37, "title": "Help the Cat Catch Fish", "file": "level-037.json" },
+    { "id": "tricky-brain-038", "levelNumber": 38, "title": "Clean Up the Garden", "file": "level-038.json" },
+    { "id": "tricky-brain-039", "levelNumber": 39, "title": "Light Up Candle #2", "file": "level-039.json" },
+    { "id": "tricky-brain-040", "levelNumber": 40, "title": "Drive the Fixed Car", "file": "level-040.json" },
+    { "id": "tricky-brain-041", "levelNumber": 41, "title": "Hatch Chick #2", "file": "level-041.json" },
+    { "id": "tricky-brain-042", "levelNumber": 42, "title": "Melt Ice for Diamond #2", "file": "level-042.json" },
+    { "id": "tricky-brain-043", "levelNumber": 43, "title": "Night Owl Wake Up", "file": "level-043.json" },
+    { "id": "tricky-brain-044", "levelNumber": 44, "title": "Charge Smartphone #2", "file": "level-044.json" },
+    { "id": "tricky-brain-045", "levelNumber": 45, "title": "Open Bank Vault #2", "file": "level-045.json" },
+    { "id": "tricky-brain-046", "levelNumber": 46, "title": "Clean Water Glass", "file": "level-046.json" },
+    { "id": "tricky-brain-047", "levelNumber": 47, "title": "Trap the Wolf #2", "file": "level-047.json" },
+    { "id": "tricky-brain-048", "levelNumber": 48, "title": "Build the River Bridge #2", "file": "level-048.json" },
+    { "id": "tricky-brain-049", "levelNumber": 49, "title": "Magnetize Real Gold Coin", "file": "level-049.json" },
+    { "id": "tricky-brain-050", "levelNumber": 50, "title": "Grand Championship Final Crown", "file": "level-050.json" }
   ]
 }

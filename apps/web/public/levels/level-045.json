@@ -1,0 +1,59 @@
+{
+  "id": "tricky-brain-045",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Open Bank Vault #2",
+  "question": {
+    "text": "Drag the golden key into the steel vault door to open it!",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#1E293B"
+  },
+  "objects": [
+    {
+      "id": "vault",
+      "type": "sprite",
+      "asset": "vault_closed",
+      "position": { "x": 0.5, "y": 0.55 },
+      "scale": 1.5,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 10
+    },
+    {
+      "id": "key",
+      "type": "sprite",
+      "asset": "key",
+      "position": { "x": 0.8, "y": 0.7 },
+      "scale": 1.2,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 15
+    }
+  ],
+  "variables": { "opened": false },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "key",
+      "condition": {
+        "type": "overlap",
+        "target": "vault",
+        "distanceThreshold": 85
+      },
+      "actions": [
+        { "type": "changeSprite", "target": "vault", "asset": "vault_open" },
+        { "type": "hideObject", "target": "key" },
+        { "type": "setVariable", "key": "opened", "value": true },
+        { "type": "playAnimation", "target": "vault", "animation": "bounce" },
+        { "type": "completeLevel" }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "Drag the key directly onto the centre dial of the bank vault!",
+    "highlightObjectId": "key"
+  }
+}

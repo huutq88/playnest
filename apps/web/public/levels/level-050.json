@@ -1,0 +1,69 @@
+{
+  "id": "tricky-brain-050",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Grand Championship Final Crown",
+  "question": {
+    "text": "Assemble the Master Crown to claim the Grand Champion title of PlayNest!",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#FAF5FF"
+  },
+  "objects": [
+    {
+      "id": "crown",
+      "type": "sprite",
+      "asset": "crown_master",
+      "position": { "x": 0.5, "y": 0.6 },
+      "scale": 1.6,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 10
+    },
+    {
+      "id": "gem1",
+      "type": "sprite",
+      "asset": "gem_red",
+      "position": { "x": 0.25, "y": 0.35 },
+      "scale": 1.3,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 20
+    },
+    {
+      "id": "gem2",
+      "type": "sprite",
+      "asset": "gem_blue",
+      "position": { "x": 0.75, "y": 0.35 },
+      "scale": 1.3,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 20
+    }
+  ],
+  "variables": { "completed": false },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "gem1",
+      "condition": {
+        "type": "overlap",
+        "target": "crown",
+        "distanceThreshold": 90
+      },
+      "actions": [
+        { "type": "hideObject", "target": "gem1" },
+        { "type": "hideObject", "target": "gem2" },
+        { "type": "setVariable", "key": "completed", "value": true },
+        { "type": "playAnimation", "target": "crown", "animation": "bounce" },
+        { "type": "completeLevel" }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "Drag the glowing ruby gem directly onto the Master Crown setting to achieve 50 levels victory!",
+    "highlightObjectId": "gem1"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "id": "tricky-brain-040",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Drive the Fixed Car",
+  "question": {
+    "text": "Attach the spare wheel to drive the orange sports car!",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#F1F5F9"
+  },
+  "objects": [
+    {
+      "id": "car",
+      "type": "sprite",
+      "asset": "car_no_wheel",
+      "position": { "x": 0.4, "y": 0.55 },
+      "scale": 1.4,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 10
+    },
+    {
+      "id": "wheel",
+      "type": "sprite",
+      "asset": "wheel",
+      "position": { "x": 0.8, "y": 0.65 },
+      "scale": 1.2,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 20
+    }
+  ],
+  "variables": { "fixed": false },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "wheel",
+      "condition": {
+        "type": "overlap",
+        "target": "car",
+        "distanceThreshold": 90
+      },
+      "actions": [
+        { "type": "changeSprite", "target": "car", "asset": "car_fixed" },
+        { "type": "hideObject", "target": "wheel" },
+        { "type": "setVariable", "key": "fixed", "value": true },
+        { "type": "playAnimation", "target": "car", "animation": "bounce" },
+        { "type": "completeLevel" }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "Drag the spare wheel right onto the missing wheel socket of the car!",
+    "highlightObjectId": "wheel"
+  }
+}

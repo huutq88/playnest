@@ -1,0 +1,57 @@
+{
+  "id": "tricky-brain-047",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Trap the Wolf #2",
+  "question": {
+    "text": "Place the fence over the wolf to protect the farm!",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#FEF3C7"
+  },
+  "objects": [
+    {
+      "id": "wolf",
+      "type": "sprite",
+      "asset": "wolf",
+      "position": { "x": 0.5, "y": 0.6 },
+      "scale": 1.4,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 10
+    },
+    {
+      "id": "fence",
+      "type": "sprite",
+      "asset": "fence",
+      "position": { "x": 0.8, "y": 0.4 },
+      "scale": 1.4,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 20
+    }
+  ],
+  "variables": { "trapped": false },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "fence",
+      "condition": {
+        "type": "overlap",
+        "target": "wolf",
+        "distanceThreshold": 85
+      },
+      "actions": [
+        { "type": "setVariable", "key": "trapped", "value": true },
+        { "type": "playAnimation", "target": "wolf", "animation": "bounce" },
+        { "type": "completeLevel" }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "Drag the wooden fence onto the wolf to trap it!",
+    "highlightObjectId": "fence"
+  }
+}

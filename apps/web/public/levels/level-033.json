@@ -1,0 +1,67 @@
+{
+  "id": "tricky-brain-033",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Make the Bird Fly Away",
+  "question": {
+    "text": "Scare the bird away from the tree branch!",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#ECFDF5"
+  },
+  "objects": [
+    {
+      "id": "tree",
+      "type": "sprite",
+      "asset": "tree",
+      "position": { "x": 0.5, "y": 0.6 },
+      "scale": 1.4,
+      "interactive": false,
+      "zIndex": 10
+    },
+    {
+      "id": "bird",
+      "type": "sprite",
+      "asset": "bird",
+      "position": { "x": 0.5, "y": 0.4 },
+      "scale": 1.3,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 15
+    },
+    {
+      "id": "cat",
+      "type": "sprite",
+      "asset": "cat_hungry",
+      "position": { "x": 0.8, "y": 0.7 },
+      "scale": 1.3,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 20
+    }
+  ],
+  "variables": { "flown": false },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "cat",
+      "condition": {
+        "type": "overlap",
+        "target": "tree",
+        "distanceThreshold": 85
+      },
+      "actions": [
+        { "type": "hideObject", "target": "bird" },
+        { "type": "setVariable", "key": "flown", "value": true },
+        { "type": "playAnimation", "target": "cat", "animation": "bounce" },
+        { "type": "completeLevel" }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "Drag the cat under the tree to scare the bluebird away into the sky!",
+    "highlightObjectId": "cat"
+  }
+}

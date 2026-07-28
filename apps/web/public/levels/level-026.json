@@ -1,0 +1,58 @@
+{
+  "id": "tricky-brain-026",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Save the Wilting Plant",
+  "question": {
+    "text": "Water the thirsty plant so it blooms red flowers!",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#ECFDF5"
+  },
+  "objects": [
+    {
+      "id": "plant",
+      "type": "sprite",
+      "asset": "plant_wilted",
+      "position": { "x": 0.5, "y": 0.6 },
+      "scale": 1.5,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 10
+    },
+    {
+      "id": "cloud",
+      "type": "sprite",
+      "asset": "cloud",
+      "position": { "x": 0.5, "y": 0.35 },
+      "scale": 1.4,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 20
+    }
+  ],
+  "variables": { "watered": false },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "cloud",
+      "condition": {
+        "type": "overlap",
+        "target": "plant",
+        "distanceThreshold": 90
+      },
+      "actions": [
+        { "type": "setVariable", "key": "watered", "value": true },
+        { "type": "changeSprite", "target": "plant", "asset": "plant_blooming" },
+        { "type": "playAnimation", "target": "plant", "animation": "bounce" },
+        { "type": "completeLevel" }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "Drag the rain cloud directly over the wilted plant to give it fresh water!",
+    "highlightObjectId": "cloud"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "id": "tricky-brain-035",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Turn Off the Bright Sun",
+  "question": {
+    "text": "It is too hot! Cover the sun to bring shade.",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#FEF08A"
+  },
+  "objects": [
+    {
+      "id": "sun",
+      "type": "sprite",
+      "asset": "sun",
+      "position": { "x": 0.5, "y": 0.5 },
+      "scale": 1.5,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 10
+    },
+    {
+      "id": "cloud",
+      "type": "sprite",
+      "asset": "cloud",
+      "position": { "x": 0.25, "y": 0.35 },
+      "scale": 1.4,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 20
+    }
+  ],
+  "variables": { "shaded": false },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "cloud",
+      "condition": {
+        "type": "overlap",
+        "target": "sun",
+        "distanceThreshold": 85
+      },
+      "actions": [
+        { "type": "setVariable", "key": "shaded", "value": true },
+        { "type": "playAnimation", "target": "sun", "animation": "bounce" },
+        { "type": "completeLevel" }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "Drag the fluffy cloud directly over the sun to cover the hot rays!",
+    "highlightObjectId": "cloud"
+  }
+}

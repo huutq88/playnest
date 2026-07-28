@@ -1,0 +1,67 @@
+{
+  "id": "tricky-brain-048",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Build the River Bridge #2",
+  "question": {
+    "text": "Place the wooden plank on the river for the boy to cross!",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#ECFDF5"
+  },
+  "objects": [
+    {
+      "id": "river",
+      "type": "sprite",
+      "asset": "river",
+      "position": { "x": 0.5, "y": 0.6 },
+      "scale": 1.5,
+      "interactive": false,
+      "zIndex": 10
+    },
+    {
+      "id": "boy",
+      "type": "sprite",
+      "asset": "boy",
+      "position": { "x": 0.15, "y": 0.6 },
+      "scale": 1.2,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 20
+    },
+    {
+      "id": "plank",
+      "type": "sprite",
+      "asset": "plank",
+      "position": { "x": 0.5, "y": 0.35 },
+      "scale": 1.4,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 15
+    }
+  ],
+  "variables": { "crossed": false },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "plank",
+      "condition": {
+        "type": "overlap",
+        "target": "river",
+        "distanceThreshold": 85
+      },
+      "actions": [
+        { "type": "changeSprite", "target": "plank", "asset": "bridge_fixed" },
+        { "type": "setVariable", "key": "crossed", "value": true },
+        { "type": "playAnimation", "target": "boy", "animation": "bounce" },
+        { "type": "completeLevel" }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "Drag the wooden plank over the river water to build a bridge!",
+    "highlightObjectId": "plank"
+  }
+}

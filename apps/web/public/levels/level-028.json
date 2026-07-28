@@ -1,0 +1,69 @@
+{
+  "id": "tricky-brain-028",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Cook a Fried Egg",
+  "question": {
+    "text": "Fry an egg in the pan for breakfast!",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#FFF7ED"
+  },
+  "objects": [
+    {
+      "id": "pan",
+      "type": "sprite",
+      "asset": "pan_empty",
+      "position": { "x": 0.5, "y": 0.6 },
+      "scale": 1.5,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 10
+    },
+    {
+      "id": "egg",
+      "type": "sprite",
+      "asset": "egg",
+      "position": { "x": 0.25, "y": 0.4 },
+      "scale": 1.2,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 15
+    },
+    {
+      "id": "match",
+      "type": "sprite",
+      "asset": "match",
+      "position": { "x": 0.75, "y": 0.4 },
+      "scale": 1.2,
+      "interactive": true,
+      "interactions": [{ "type": "drag", "snapBack": false }],
+      "zIndex": 20
+    }
+  ],
+  "variables": { "cooked": false },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "egg",
+      "condition": {
+        "type": "overlap",
+        "target": "pan",
+        "distanceThreshold": 85
+      },
+      "actions": [
+        { "type": "changeSprite", "target": "pan", "asset": "pan_fried" },
+        { "type": "hideObject", "target": "egg" },
+        { "type": "setVariable", "key": "cooked", "value": true },
+        { "type": "playAnimation", "target": "pan", "animation": "bounce" },
+        { "type": "completeLevel" }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "Drag the egg directly over the frying pan to crack and fry it!",
+    "highlightObjectId": "egg"
+  }
+}
