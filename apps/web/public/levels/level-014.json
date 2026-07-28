@@ -1,0 +1,137 @@
+{
+  "id": "tricky-brain-014",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Feed the Hungry Cat Again",
+  "question": {
+    "text": "The cat wants fish! But the fish is frozen in ice.",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#FFF7ED"
+  },
+  "objects": [
+    {
+      "id": "cat",
+      "type": "sprite",
+      "asset": "cat_hungry",
+      "position": { "x": 0.3, "y": 0.6 },
+      "scale": 1.4,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 10
+    },
+    {
+      "id": "fish",
+      "type": "sprite",
+      "asset": "fish",
+      "position": { "x": 0.75, "y": 0.6 },
+      "scale": 1.3,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 15
+    },
+    {
+      "id": "ice_cube",
+      "type": "sprite",
+      "asset": "ice_cube",
+      "position": { "x": 0.75, "y": 0.6 },
+      "scale": 1.4,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 25
+    },
+    {
+      "id": "match",
+      "type": "sprite",
+      "asset": "match",
+      "position": { "x": 0.5, "y": 0.35 },
+      "scale": 1.3,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 20
+    }
+  ],
+  "variables": {
+    "unfrozen": false
+  },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "match",
+      "condition": {
+        "type": "overlap",
+        "target": "ice_cube",
+        "distanceThreshold": 80
+      },
+      "actions": [
+        {
+          "type": "hideObject",
+          "target": "ice_cube"
+        },
+        {
+          "type": "hideObject",
+          "target": "match"
+        },
+        {
+          "type": "setVariable",
+          "key": "unfrozen",
+          "value": true
+        }
+      ]
+    },
+    {
+      "event": "drop",
+      "source": "fish",
+      "condition": {
+        "type": "overlap",
+        "target": "cat",
+        "distanceThreshold": 90
+      },
+      "actions": [
+        {
+          "type": "changeSprite",
+          "target": "cat",
+          "asset": "cat_happy"
+        },
+        {
+          "type": "hideObject",
+          "target": "fish"
+        },
+        {
+          "type": "playAnimation",
+          "target": "cat",
+          "animation": "bounce"
+        },
+        {
+          "type": "completeLevel"
+        }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "Use the match stick to melt the ice surrounding the fish first, then drag fish to the cat!",
+    "highlightObjectId": "match"
+  }
+}

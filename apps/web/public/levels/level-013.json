@@ -1,0 +1,112 @@
+{
+  "id": "tricky-brain-013",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Open the Treasure Chest",
+  "question": {
+    "text": "Unlock the middle treasure chest!",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#FFF7ED"
+  },
+  "objects": [
+    {
+      "id": "chest_left",
+      "type": "sprite",
+      "asset": "chest",
+      "position": { "x": 0.2, "y": 0.6 },
+      "scale": 1.2,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 10
+    },
+    {
+      "id": "chest_target",
+      "type": "sprite",
+      "asset": "lock",
+      "position": { "x": 0.5, "y": 0.6 },
+      "scale": 1.4,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 10
+    },
+    {
+      "id": "chest_right",
+      "type": "sprite",
+      "asset": "chest",
+      "position": { "x": 0.8, "y": 0.6 },
+      "scale": 1.2,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 10
+    },
+    {
+      "id": "key",
+      "type": "sprite",
+      "asset": "key",
+      "position": { "x": 0.2, "y": 0.6 },
+      "scale": 1.1,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 15
+    }
+  ],
+  "variables": {
+    "unlocked": false
+  },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "key",
+      "condition": {
+        "type": "overlap",
+        "target": "chest_target",
+        "distanceThreshold": 80
+      },
+      "actions": [
+        {
+          "type": "setVariable",
+          "key": "unlocked",
+          "value": true
+        },
+        {
+          "type": "hideObject",
+          "target": "chest_target"
+        },
+        {
+          "type": "hideObject",
+          "target": "key"
+        },
+        {
+          "type": "completeLevel"
+        }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "Move the left chest away to find the golden key hidden beneath it!",
+    "highlightObjectId": "chest_left"
+  }
+}

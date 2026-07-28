@@ -1,0 +1,98 @@
+{
+  "id": "tricky-brain-006",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Make the Tree Grow Apples",
+  "question": {
+    "text": "Help the green tree grow ripe apples!",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#ECFDF5"
+  },
+  "objects": [
+    {
+      "id": "tree",
+      "type": "sprite",
+      "asset": "tree",
+      "position": { "x": 0.5, "y": 0.6 },
+      "scale": 1.4,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 10
+    },
+    {
+      "id": "sun",
+      "type": "sprite",
+      "asset": "sun",
+      "position": { "x": 0.25, "y": 0.35 },
+      "scale": 1.1,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 15
+    },
+    {
+      "id": "cloud",
+      "type": "sprite",
+      "asset": "cloud",
+      "position": { "x": 0.25, "y": 0.35 },
+      "scale": 1.3,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 25
+    }
+  ],
+  "variables": {
+    "sunExposed": false
+  },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "cloud",
+      "condition": {
+        "type": "allConditionsCompleted",
+        "conditions": []
+      },
+      "actions": [
+        {
+          "type": "setVariable",
+          "key": "sunExposed",
+          "value": true
+        },
+        {
+          "type": "changeSprite",
+          "target": "tree",
+          "asset": "tree_apples"
+        },
+        {
+          "type": "playAnimation",
+          "target": "tree",
+          "animation": "bounce"
+        },
+        {
+          "type": "completeLevel"
+        }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "The cloud is blocking the warm sunlight. Drag the cloud away to shine light on the tree!",
+    "highlightObjectId": "cloud"
+  }
+}

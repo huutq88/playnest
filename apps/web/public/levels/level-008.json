@@ -1,0 +1,103 @@
+{
+  "id": "tricky-brain-008",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Fix the Sports Car",
+  "question": {
+    "text": "The car can't drive! Find the missing part to fix it.",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#F1F5F9"
+  },
+  "objects": [
+    {
+      "id": "car",
+      "type": "sprite",
+      "asset": "car_no_wheel",
+      "position": { "x": 0.4, "y": 0.55 },
+      "scale": 1.4,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 10
+    },
+    {
+      "id": "wheel",
+      "type": "sprite",
+      "asset": "wheel",
+      "position": { "x": 0.8, "y": 0.7 },
+      "scale": 1.2,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 15
+    },
+    {
+      "id": "rock",
+      "type": "sprite",
+      "asset": "rock",
+      "position": { "x": 0.8, "y": 0.7 },
+      "scale": 1.4,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 25
+    }
+  ],
+  "variables": {
+    "fixed": false
+  },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "wheel",
+      "condition": {
+        "type": "overlap",
+        "target": "car",
+        "distanceThreshold": 90
+      },
+      "actions": [
+        {
+          "type": "setVariable",
+          "key": "fixed",
+          "value": true
+        },
+        {
+          "type": "changeSprite",
+          "target": "car",
+          "asset": "car_fixed"
+        },
+        {
+          "type": "hideObject",
+          "target": "wheel"
+        },
+        {
+          "type": "playAnimation",
+          "target": "car",
+          "animation": "bounce"
+        },
+        {
+          "type": "completeLevel"
+        }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "The spare wheel is hidden behind the big rock! Move the rock and attach the wheel.",
+    "highlightObjectId": "rock"
+  }
+}
