@@ -33,6 +33,12 @@ services:
       - GA_PROPERTY_ID=${GA_PROPERTY_ID}
       - GA_CLIENT_EMAIL=${GA_CLIENT_EMAIL}
       - GA_PRIVATE_KEY=${GA_PRIVATE_KEY}
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
     networks:
       - playnest-isolated-network
 

@@ -1,20 +1,28 @@
-# ── Stage 1: Build ───────────────────────────────────────────────────────────
-FROM node:22-alpine AS builder
-
-# Enable corepack for pnpm 9
+# ── Stage 1: Workspace Dependencies Layer (Cached by Docker) ───────────────
+FROM node:22-alpine AS deps
 RUN corepack enable && corepack prepare pnpm@9.15.4 --activate
-
 WORKDIR /app
 
-# Copy root workspace configs
-COPY package.json pnpm-workspace.yaml pnpm-lock.yaml* ./
+# Copy ONLY workspace config & package manifests first to maximize Docker layer caching
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
+COPY packages/level-schema/package.json ./packages/level-schema/
+COPY packages/puzzle-engine/package.json ./packages/puzzle-engine/
+COPY apps/web/package.json ./apps/web/
 
-# Copy packages and apps
+# Install dependencies (Layer is CACHED unless package.json / pnpm-lock changes!)
+RUN pnpm install --frozen-lockfile || pnpm install
+
+# ── Stage 2: Application Builder ─────────────────────────────────────────────
+FROM node:22-alpine AS builder
+RUN corepack enable && corepack prepare pnpm@9.15.4 --activate
+WORKDIR /app
+
+# Copy cached node_modules and manifests from deps stage
+COPY --from=deps /app ./
+
+# Copy workspace source code
 COPY packages ./packages
 COPY apps/web ./apps/web
-
-# Install all workspace dependencies
-RUN pnpm install --frozen-lockfile || pnpm install
 
 # Build Arguments for Next.js NEXT_PUBLIC_ environment variables
 ARG NEXT_PUBLIC_FIREBASE_API_KEY
@@ -33,32 +41,21 @@ ENV NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=$NEXT_PUBLIC_FIREBASE_MESSAGING_SEN
 ENV NEXT_PUBLIC_FIREBASE_APP_ID=$NEXT_PUBLIC_FIREBASE_APP_ID
 ENV NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=$NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 
-# Build all packages & Next.js web application
+# Build Next.js application (standalone output mode)
 RUN pnpm --filter @playnest/web build
 
-# ── Stage 2: Production Runner ─────────────────────────────────────────────
+# ── Stage 3: Ultra-Fast Production Runner ──────────────────────────────────
 FROM node:22-alpine AS runner
-
-RUN corepack enable && corepack prepare pnpm@9.15.4 --activate
-
 WORKDIR /app
 
 ENV NODE_ENV=production
 ENV PORT=3000
 
-# Copy workspace root metadata
-COPY package.json pnpm-workspace.yaml pnpm-lock.yaml* ./
-COPY packages ./packages
-
-# Copy built Next.js artifacts and packages
-COPY --from=builder /app/apps/web/package.json ./apps/web/
-COPY --from=builder /app/apps/web/.next ./apps/web/.next
+# Copy Next.js standalone bundle (traced dependencies, ~30MB total)
 COPY --from=builder /app/apps/web/public ./apps/web/public
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/apps/web/node_modules ./apps/web/node_modules
+COPY --from=builder /app/apps/web/.next/standalone ./
+COPY --from=builder /app/apps/web/.next/static ./apps/web/.next/static
 
 EXPOSE 3000
 
-WORKDIR /app/apps/web
-
-CMD ["pnpm", "start"]
+CMD ["node", "apps/web/server.js"]
