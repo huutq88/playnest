@@ -11,6 +11,13 @@ export interface UserSaveData {
   lastPlayedAt: string;
 }
 
+export interface LevelCompleteResult {
+  savedData: UserSaveData;
+  earnedStars: number;
+  earnedCoins: number;
+  solveTimeSeconds: number;
+}
+
 const SAVE_KEY_PREFIX = 'playnest_save_';
 
 export class SaveManager {
@@ -40,8 +47,7 @@ export class SaveManager {
       if (!Array.isArray(parsed.completedLevels)) {
         parsed.completedLevels = [];
       }
-      // Real calculated values if missing or legacy
-      if (parsed.coins === undefined) parsed.coins = parsed.completedLevels.length * 10;
+      if (parsed.coins === undefined) parsed.coins = parsed.completedLevels.length * 5;
       if (parsed.stars === undefined) parsed.stars = parsed.completedLevels.length * 3;
       if (parsed.lives === undefined) parsed.lives = 3;
       if (parsed.hintBalance === undefined) parsed.hintBalance = 3;
@@ -61,19 +67,48 @@ export class SaveManager {
     }
   }
 
-  public completeLevel(levelNumber: number): UserSaveData {
+  /**
+   * Complete Level with dynamic time-based rating:
+   * - Under 10s: 3 Stars ⭐⭐⭐ & 5 Points 🪙
+   * - Under 20s: 2 Stars ⭐⭐ & 3 Points 🪙
+   * - Otherwise: 1 Star ⭐ & 1 Point 🪙
+   */
+  public completeLevel(levelNumber: number, solveTimeSeconds: number = 15): LevelCompleteResult {
     const data = this.getSaveData();
+
+    // Calculate rating based on solve time
+    let earnedStars = 1;
+    let earnedCoins = 1;
+
+    if (solveTimeSeconds < 10) {
+      earnedStars = 3;
+      earnedCoins = 5;
+    } else if (solveTimeSeconds < 20) {
+      earnedStars = 2;
+      earnedCoins = 3;
+    } else {
+      earnedStars = 1;
+      earnedCoins = 1;
+    }
+
     if (!data.completedLevels.includes(levelNumber)) {
       data.completedLevels.push(levelNumber);
-      data.coins += 10;
-      data.stars += 3;
+      data.coins += earnedCoins;
+      data.stars += earnedStars;
     }
+
     if (levelNumber >= data.currentLevel) {
       data.currentLevel = levelNumber + 1;
     }
     data.lastPlayedAt = new Date().toISOString();
     this.saveData(data);
-    return data;
+
+    return {
+      savedData: data,
+      earnedStars,
+      earnedCoins,
+      solveTimeSeconds,
+    };
   }
 
   public useHint(): boolean {

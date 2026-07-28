@@ -18,12 +18,15 @@ interface GameState {
   hintText: string;
   guestId: string;
   nickname: string;
+  lastEarnedStars: number;
+  lastEarnedCoins: number;
+  lastSolveTimeSeconds: number;
 
   // Actions
   initSaveData: () => void;
   updateNickname: (name: string) => void;
   setCurrentLevel: (level: number) => void;
-  completeCurrentLevel: () => void;
+  completeCurrentLevel: (solveTimeSeconds?: number) => void;
   useHint: () => boolean;
   toggleSound: () => void;
   openVictoryModal: () => void;
@@ -45,6 +48,9 @@ export const useGameStore = create<GameState>((set, get) => ({
   hintText: '',
   guestId: '',
   nickname: '',
+  lastEarnedStars: 3,
+  lastEarnedCoins: 5,
+  lastSolveTimeSeconds: 8,
 
   initSaveData: () => {
     const data = saveManager.getSaveData();
@@ -103,13 +109,18 @@ export const useGameStore = create<GameState>((set, get) => ({
       .catch(() => {});
   },
 
-  completeCurrentLevel: () => {
+  completeCurrentLevel: (solveTimeSeconds: number = 12) => {
     const state = get();
-    const updated = saveManager.completeLevel(state.currentLevel);
+    const result = saveManager.completeLevel(state.currentLevel, solveTimeSeconds);
+    const updated = result.savedData;
+
     set({
       completedLevels: updated.completedLevels,
       coins: updated.coins,
       stars: updated.stars,
+      lastEarnedStars: result.earnedStars,
+      lastEarnedCoins: result.earnedCoins,
+      lastSolveTimeSeconds: result.solveTimeSeconds,
       isVictoryModalOpen: true,
     });
 
@@ -120,8 +131,9 @@ export const useGameStore = create<GameState>((set, get) => ({
           logEvent(analytics, 'level_complete', {
             game_id: 'tricky-brain',
             level_number: state.currentLevel,
-            coins_earned: 10,
-            stars_earned: 3,
+            solve_time_seconds: solveTimeSeconds,
+            stars_earned: result.earnedStars,
+            coins_earned: result.earnedCoins,
           });
         }
       })

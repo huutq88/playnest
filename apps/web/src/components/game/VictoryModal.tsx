@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 import confetti from 'canvas-confetti';
-import { Star, ArrowRight, Home, Trophy, Sparkles } from 'lucide-react';
+import { Star, ArrowRight, Home, Trophy, Sparkles, Zap, Timer } from 'lucide-react';
 import Link from 'next/link';
 import { useGameStore } from '@/store/useGameStore';
 
@@ -18,7 +18,7 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
   totalLevels,
   onNextLevel,
 }) => {
-  const { isVictoryModalOpen, closeVictoryModal } = useGameStore();
+  const { isVictoryModalOpen, closeVictoryModal, lastEarnedStars, lastEarnedCoins, lastSolveTimeSeconds } = useGameStore();
 
   useEffect(() => {
     if (isVictoryModalOpen) {
@@ -41,44 +41,71 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
         {/* Ambient Glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-48 bg-amber-500/15 rounded-full blur-2xl pointer-events-none" />
 
-        {/* 3 Glowing Stars matching Win Modal in Section 3 */}
+        {/* 3 Stars Dynamic Rating */}
         <div className="flex items-center gap-3 pt-2">
-          <Star className="w-10 h-10 text-amber-400 fill-amber-400 -rotate-12 drop-shadow-[0_0_12px_rgba(245,158,11,0.6)] animate-bounce" style={{ animationDelay: '100ms' }} />
-          <Star className="w-14 h-14 text-amber-400 fill-amber-400 drop-shadow-[0_0_16px_rgba(245,158,11,0.8)] animate-bounce" style={{ animationDelay: '0ms' }} />
-          <Star className="w-10 h-10 text-amber-400 fill-amber-400 rotate-12 drop-shadow-[0_0_12px_rgba(245,158,11,0.6)] animate-bounce" style={{ animationDelay: '200ms' }} />
+          {/* Star 1 */}
+          <Star
+            className={`w-10 h-10 -rotate-12 transition-all ${
+              lastEarnedStars >= 1
+                ? 'text-amber-400 fill-amber-400 drop-shadow-[0_0_12px_rgba(245,158,11,0.8)] animate-bounce'
+                : 'text-slate-700 fill-slate-800 opacity-40'
+            }`}
+            style={{ animationDelay: '100ms' }}
+          />
+
+          {/* Star 2 (Center) */}
+          <Star
+            className={`w-14 h-14 transition-all ${
+              lastEarnedStars >= 2
+                ? 'text-amber-400 fill-amber-400 drop-shadow-[0_0_16px_rgba(245,158,11,0.9)] animate-bounce'
+                : 'text-slate-700 fill-slate-800 opacity-40'
+            }`}
+            style={{ animationDelay: '0ms' }}
+          />
+
+          {/* Star 3 */}
+          <Star
+            className={`w-10 h-10 rotate-12 transition-all ${
+              lastEarnedStars >= 3
+                ? 'text-amber-400 fill-amber-400 drop-shadow-[0_0_12px_rgba(245,158,11,0.8)] animate-bounce'
+                : 'text-slate-700 fill-slate-800 opacity-40'
+            }`}
+            style={{ animationDelay: '200ms' }}
+          />
         </div>
 
         {/* Header & Subtitle */}
         <div className="space-y-1 z-10">
           <h2 className="text-3xl font-black text-white tracking-tight">
-            {hasNextLevel ? 'Awesome!' : 'Congratulations! 🎉'}
+            {lastEarnedStars === 3 ? 'Lightning Speed! ⚡' : lastEarnedStars === 2 ? 'Great Job! 🎉' : 'Level Solved! 👍'}
           </h2>
           <p className="text-slate-300 text-sm font-medium">
-            {hasNextLevel
-              ? `You completed Level ${levelNumber}`
-              : `You completed all ${totalLevels} available levels!`}
+            Completed Level {levelNumber} in <span className="text-cyan-400 font-extrabold">{lastSolveTimeSeconds}s</span>
           </p>
         </div>
 
-        {/* Reward Badge or All Completed Banner */}
-        {hasNextLevel ? (
-          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 font-extrabold text-base shadow-inner">
-            <span className="text-xl">🪙</span>
-            <span>+10</span>
+        {/* Time Rating & Rewards Badge */}
+        <div className="w-full flex flex-col gap-2 z-10">
+          {/* Time Badge */}
+          <div className="inline-flex items-center justify-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-bold text-xs">
+            <Timer className="w-4 h-4 text-cyan-400" />
+            <span>
+              {lastSolveTimeSeconds < 10
+                ? 'Under 10s: 3 Stars ⭐⭐⭐'
+                : lastSolveTimeSeconds < 20
+                ? 'Under 20s: 2 Stars ⭐⭐'
+                : 'Over 20s: 1 Star ⭐'}
+            </span>
           </div>
-        ) : (
-          <div className="p-3.5 rounded-2xl bg-gradient-to-r from-purple-900/60 to-pink-900/60 border border-purple-400/30 text-left space-y-1">
-            <div className="flex items-center gap-2 text-xs font-bold text-amber-300">
-              <Trophy className="w-4 h-4 text-amber-400 shrink-0" />
-              <span>Brain Master Unlocked!</span>
-            </div>
-            <p className="text-[11px] text-slate-300 leading-relaxed">
-              New tricky puzzle levels are under active development. Stay tuned for upcoming updates!
-            </p>
-          </div>
-        )}
 
-        {/* Action Buttons matching Section 3 */}
+          {/* Coins Earned Badge */}
+          <div className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 font-extrabold text-base shadow-inner">
+            <span className="text-xl">🪙</span>
+            <span>+{lastEarnedCoins} Coins</span>
+          </div>
+        </div>
+
+        {/* Action Buttons */}
         <div className="w-full space-y-3 pt-1 z-10">
           {hasNextLevel ? (
             <button
@@ -103,12 +130,12 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
           )}
 
           <Link
-            href="/"
+            href="/levels"
             onClick={closeVictoryModal}
             className="w-full py-3.5 px-6 bg-slate-800/90 hover:bg-slate-750 text-slate-200 font-bold rounded-2xl border border-slate-700/60 transition-colors flex items-center justify-center gap-2 text-sm cursor-pointer"
           >
             <Home className="w-4 h-4" />
-            <span>Home</span>
+            <span>Level List</span>
           </Link>
         </div>
       </div>

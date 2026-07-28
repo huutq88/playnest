@@ -25,8 +25,8 @@ export const GameContainer: React.FC<GameContainerProps> = ({ levelSpec }) => {
 
     const sceneData: GameplaySceneData = {
       levelSpec,
-      onLevelComplete: () => {
-        completeCurrentLevel();
+      onLevelComplete: (solveTimeSeconds: number) => {
+        completeCurrentLevel(solveTimeSeconds);
       },
     };
 
@@ -53,7 +53,7 @@ export const GameContainer: React.FC<GameContainerProps> = ({ levelSpec }) => {
         <div className="absolute inset-0 flex items-center justify-center bg-slate-900 text-white font-medium">
           <div className="flex flex-col items-center gap-3">
             <div className="w-10 h-10 border-4 border-amber-400 border-t-transparent rounded-full animate-spin" />
-            <span className="text-amber-300 font-semibold tracking-wide">Đang tải màn chơi...</span>
+            <span className="text-amber-300 font-semibold tracking-wide">Loading level...</span>
           </div>
         </div>
       )}

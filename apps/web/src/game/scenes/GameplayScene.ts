@@ -4,7 +4,7 @@ import { ObjectFactory, InteractionEngine, RuleEngine } from '@playnest/puzzle-e
 
 export interface GameplaySceneData {
   levelSpec: LevelSpec;
-  onLevelComplete: () => void;
+  onLevelComplete: (solveTimeSeconds: number) => void;
   onLevelFailed?: () => void;
 }
 
@@ -13,8 +13,9 @@ export class GameplayScene extends Phaser.Scene {
   private objectsMap: Map<string, Phaser.GameObjects.GameObject> = new Map();
   private interactionEngine!: InteractionEngine;
   private ruleEngine!: RuleEngine;
-  private onLevelCompleteCallback!: () => void;
+  private onLevelCompleteCallback!: (solveTimeSeconds: number) => void;
   private questionText!: Phaser.GameObjects.Text;
+  private levelStartTime: number = 0;
 
   constructor() {
     super('GameplayScene');
@@ -27,6 +28,7 @@ export class GameplayScene extends Phaser.Scene {
   }
 
   create() {
+    this.levelStartTime = Date.now();
     const width = this.cameras.main.width;
     const height = this.cameras.main.height;
 
@@ -97,6 +99,7 @@ export class GameplayScene extends Phaser.Scene {
 
   private handleLevelCompleted() {
     this.input.enabled = false;
+    const solveTimeSeconds = Math.max(1, Math.floor((Date.now() - this.levelStartTime) / 1000));
 
     this.objectsMap.forEach((obj) => {
       this.tweens.add({
@@ -111,7 +114,7 @@ export class GameplayScene extends Phaser.Scene {
 
     this.time.delayedCall(700, () => {
       if (this.onLevelCompleteCallback) {
-        this.onLevelCompleteCallback();
+        this.onLevelCompleteCallback(solveTimeSeconds);
       }
     });
   }
