@@ -23,6 +23,11 @@ node_modules
 .DS_Store
 *.pem
 
+# secrets & credentials
+deploy/*.json
+*serviceaccount*.json
+play-nest-zone*.json
+
 # debug
 *.log
 npm-debug.log*
