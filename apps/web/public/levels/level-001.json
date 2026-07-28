@@ -1,0 +1,88 @@
+{
+  "id": "tricky-brain-001",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Feed the Hungry Cat",
+  "question": {
+    "text": "Help the cat get the fresh fish!",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#FEF3C7"
+  },
+  "objects": [
+    {
+      "id": "cat",
+      "type": "sprite",
+      "asset": "cat_normal",
+      "position": { "x": 0.3, "y": 0.6 },
+      "scale": 1.5,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 10
+    },
+    {
+      "id": "fish",
+      "type": "sprite",
+      "asset": "fish",
+      "position": { "x": 0.7, "y": 0.6 },
+      "scale": 1.2,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 20
+    }
+  ],
+  "variables": {
+    "fed": false
+  },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "fish",
+      "condition": {
+        "type": "overlap",
+        "target": "cat",
+        "distanceThreshold": 80
+      },
+      "actions": [
+        {
+          "type": "setVariable",
+          "key": "fed",
+          "value": true
+        },
+        {
+          "type": "changeSprite",
+          "target": "cat",
+          "asset": "cat_happy"
+        },
+        {
+          "type": "hideObject",
+          "target": "fish"
+        },
+        {
+          "type": "playAnimation",
+          "target": "cat",
+          "animation": "bounce"
+        },
+        {
+          "type": "completeLevel"
+        }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "Drag the fish and place it onto the cat to feed it!",
+    "highlightObjectId": "fish"
+  }
+}

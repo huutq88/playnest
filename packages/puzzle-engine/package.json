@@ -1,0 +1,15 @@
+{
+  "name": "@playnest/puzzle-engine",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./loader": "./src/LevelLoader.ts",
+    "./save": "./src/SaveManager.ts"
+  },
+  "dependencies": {
+    "@playnest/level-schema": "workspace:*",
+    "phaser": "^3.88.2"
+  }
+}

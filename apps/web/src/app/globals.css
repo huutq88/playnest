@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-poppins), 'Poppins', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  background-color: #0D0F23 !important;
+  color: #E2E8F0 !important;
+  font-family: var(--font-poppins), 'Poppins', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0D0F23;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(37, 99, 235, 0.3);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 58, 237, 0.6);
+}
+
+.gradient-btn-primary {
+  background: linear-gradient(135deg, #2563EB 0%, #7C3AED 50%, #EC4899 100%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gradient-btn-primary:hover {
+  box-shadow: 0 0 25px rgba(124, 58, 237, 0.5);
+  transform: translateY(-2px);
+}
+
+.glass-card {
+  background: rgba(18, 22, 47, 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(124, 58, 237, 0.15);
+}
+
+.glass-card:hover {
+  border-color: rgba(124, 58, 237, 0.4);
+  box-shadow: 0 10px 30px -10px rgba(124, 58, 237, 0.25);
+}

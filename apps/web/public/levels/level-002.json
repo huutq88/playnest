@@ -1,0 +1,73 @@
+{
+  "id": "tricky-brain-002",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Open the Mystery Box",
+  "question": {
+    "text": "How do you open this box?",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#E0F2FE"
+  },
+  "objects": [
+    {
+      "id": "box",
+      "type": "sprite",
+      "asset": "box_close",
+      "position": { "x": 0.5, "y": 0.5 },
+      "scale": 1.5,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        },
+        {
+          "type": "tap",
+          "requiredTaps": 3
+        }
+      ],
+      "zIndex": 10
+    }
+  ],
+  "variables": {
+    "opened": false
+  },
+  "rules": [
+    {
+      "event": "tap",
+      "source": "box",
+      "condition": {
+        "type": "tappedCount",
+        "target": "box",
+        "count": 3
+      },
+      "actions": [
+        {
+          "type": "setVariable",
+          "key": "opened",
+          "value": true
+        },
+        {
+          "type": "changeSprite",
+          "target": "box",
+          "asset": "box_open"
+        },
+        {
+          "type": "playAnimation",
+          "target": "box",
+          "animation": "bounce"
+        },
+        {
+          "type": "completeLevel"
+        }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "Tap the box 3 times repeatedly to pop it open!",
+    "highlightObjectId": "box"
+  }
+}

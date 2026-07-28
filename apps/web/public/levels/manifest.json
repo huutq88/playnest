@@ -1,0 +1,36 @@
+{
+  "gameId": "tricky-brain",
+  "title": "Tricky Brain Quest",
+  "levels": [
+    {
+      "id": "tricky-brain-001",
+      "levelNumber": 1,
+      "title": "Feed the Hungry Cat",
+      "file": "level-001.json"
+    },
+    {
+      "id": "tricky-brain-002",
+      "levelNumber": 2,
+      "title": "Open the Mystery Box",
+      "file": "level-002.json"
+    },
+    {
+      "id": "tricky-brain-003",
+      "levelNumber": 3,
+      "title": "Find the Hidden Key",
+      "file": "level-003.json"
+    },
+    {
+      "id": "tricky-brain-004",
+      "levelNumber": 4,
+      "title": "Balance the Scale",
+      "file": "level-004.json"
+    },
+    {
+      "id": "tricky-brain-005",
+      "levelNumber": 5,
+      "title": "Extinguish the Fire",
+      "file": "level-005.json"
+    }
+  ]
+}

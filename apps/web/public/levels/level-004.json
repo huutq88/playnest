@@ -1,0 +1,79 @@
+{
+  "id": "tricky-brain-004",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Balance the Scale",
+  "question": {
+    "text": "How do you make the balance scale level?",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#F0FDFA"
+  },
+  "objects": [
+    {
+      "id": "scale_base",
+      "type": "sprite",
+      "asset": "lock",
+      "position": { "x": 0.5, "y": 0.5 },
+      "scale": 1.4,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 10
+    },
+    {
+      "id": "weight",
+      "type": "sprite",
+      "asset": "key",
+      "position": { "x": 0.2, "y": 0.75 },
+      "scale": 1.2,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 20
+    }
+  ],
+  "variables": {
+    "balanced": false
+  },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "weight",
+      "condition": {
+        "type": "overlap",
+        "target": "scale_base",
+        "distanceThreshold": 80
+      },
+      "actions": [
+        {
+          "type": "setVariable",
+          "key": "balanced",
+          "value": true
+        },
+        {
+          "type": "playAnimation",
+          "target": "scale_base",
+          "animation": "bounce"
+        },
+        {
+          "type": "completeLevel"
+        }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "Drag the weight and place it onto the scale in the center!",
+    "highlightObjectId": "weight"
+  }
+}

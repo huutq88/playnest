@@ -1,0 +1,13 @@
+{
+  "name": "playnest-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter @playnest/web dev",
+    "build": "pnpm --filter ... build",
+    "lint": "pnpm --filter ... lint"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

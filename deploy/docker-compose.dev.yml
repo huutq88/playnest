@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  playnest-web-dev:
+    image: playnest-web-dev
+    build:
+      context: ..
+      dockerfile: apps/web/Dockerfile
+    container_name: playnest-web-dev
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    networks:
+      - playnest-dev-network
+
+networks:
+  playnest-dev-network:
+    driver: bridge
