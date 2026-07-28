@@ -1,0 +1,103 @@
+{
+  "id": "tricky-brain-021",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Unlock the Bank Vault",
+  "question": {
+    "text": "Open the heavy steel vault to reveal the treasure!",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#1E293B"
+  },
+  "objects": [
+    {
+      "id": "vault",
+      "type": "sprite",
+      "asset": "vault_closed",
+      "position": { "x": 0.5, "y": 0.55 },
+      "scale": 1.5,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 10
+    },
+    {
+      "id": "key",
+      "type": "sprite",
+      "asset": "key",
+      "position": { "x": 0.8, "y": 0.7 },
+      "scale": 1.2,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 15
+    },
+    {
+      "id": "rock",
+      "type": "sprite",
+      "asset": "rock",
+      "position": { "x": 0.8, "y": 0.7 },
+      "scale": 1.3,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 25
+    }
+  ],
+  "variables": {
+    "opened": false
+  },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "key",
+      "condition": {
+        "type": "overlap",
+        "target": "vault",
+        "distanceThreshold": 90
+      },
+      "actions": [
+        {
+          "type": "setVariable",
+          "key": "opened",
+          "value": true
+        },
+        {
+          "type": "changeSprite",
+          "target": "vault",
+          "asset": "vault_open"
+        },
+        {
+          "type": "hideObject",
+          "target": "key"
+        },
+        {
+          "type": "playAnimation",
+          "target": "vault",
+          "animation": "bounce"
+        },
+        {
+          "type": "completeLevel"
+        }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "Move the rock away to find the golden master key, then drag it to unlock the vault!",
+    "highlightObjectId": "rock"
+  }
+}

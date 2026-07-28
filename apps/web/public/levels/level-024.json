@@ -1,0 +1,117 @@
+{
+  "id": "tricky-brain-024",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Find the Real Gold Coin",
+  "question": {
+    "text": "Identify which coin is made of pure real gold!",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#FFF7ED"
+  },
+  "objects": [
+    {
+      "id": "coin1",
+      "type": "sprite",
+      "asset": "coin_fake",
+      "position": { "x": 0.25, "y": 0.6 },
+      "scale": 1.3,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 10
+    },
+    {
+      "id": "coin2",
+      "type": "sprite",
+      "asset": "coin_gold",
+      "position": { "x": 0.5, "y": 0.6 },
+      "scale": 1.3,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 10
+    },
+    {
+      "id": "coin3",
+      "type": "sprite",
+      "asset": "coin_fake",
+      "position": { "x": 0.75, "y": 0.6 },
+      "scale": 1.3,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 10
+    },
+    {
+      "id": "magnet",
+      "type": "sprite",
+      "asset": "magnet",
+      "position": { "x": 0.5, "y": 0.35 },
+      "scale": 1.3,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 20
+    }
+  ],
+  "variables": {
+    "found": false
+  },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "magnet",
+      "condition": {
+        "type": "overlap",
+        "target": "coin1",
+        "distanceThreshold": 80
+      },
+      "actions": [
+        {
+          "type": "hideObject",
+          "target": "coin1"
+        },
+        {
+          "type": "hideObject",
+          "target": "coin3"
+        },
+        {
+          "type": "setVariable",
+          "key": "found",
+          "value": true
+        },
+        {
+          "type": "playAnimation",
+          "target": "coin2",
+          "animation": "bounce"
+        },
+        {
+          "type": "completeLevel"
+        }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "Gold is not magnetic! Drag the red magnet near the coins to suck away the fake iron coins.",
+    "highlightObjectId": "magnet"
+  }
+}

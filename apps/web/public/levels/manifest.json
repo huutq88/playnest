@@ -91,6 +91,66 @@
       "levelNumber": 15,
       "title": "Master Puzzle Escape",
       "file": "level-015.json"
+    },
+    {
+      "id": "tricky-brain-016",
+      "levelNumber": 16,
+      "title": "Fill the Glass with Water",
+      "file": "level-016.json"
+    },
+    {
+      "id": "tricky-brain-017",
+      "levelNumber": 17,
+      "title": "Protect the Sheep from Wolf",
+      "file": "level-017.json"
+    },
+    {
+      "id": "tricky-brain-018",
+      "levelNumber": 18,
+      "title": "Turn ON the Television",
+      "file": "level-018.json"
+    },
+    {
+      "id": "tricky-brain-019",
+      "levelNumber": 19,
+      "title": "Cross the Deep River",
+      "file": "level-019.json"
+    },
+    {
+      "id": "tricky-brain-020",
+      "levelNumber": 20,
+      "title": "Help Frog Catch the Fly",
+      "file": "level-020.json"
+    },
+    {
+      "id": "tricky-brain-021",
+      "levelNumber": 21,
+      "title": "Unlock the Bank Vault",
+      "file": "level-021.json"
+    },
+    {
+      "id": "tricky-brain-022",
+      "levelNumber": 22,
+      "title": "Silence the Loud Alarm Clock",
+      "file": "level-022.json"
+    },
+    {
+      "id": "tricky-brain-023",
+      "levelNumber": 23,
+      "title": "Solar Energy Generator",
+      "file": "level-023.json"
+    },
+    {
+      "id": "tricky-brain-024",
+      "levelNumber": 24,
+      "title": "Find the Real Gold Coin",
+      "file": "level-024.json"
+    },
+    {
+      "id": "tricky-brain-025",
+      "levelNumber": 25,
+      "title": "Assemble the Grand Trophy",
+      "file": "level-025.json"
     }
   ]
 }

@@ -1,0 +1,83 @@
+{
+  "id": "tricky-brain-022",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Silence the Loud Alarm Clock",
+  "question": {
+    "text": "Stop the noisy alarm clock from ringing!",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#FFFBEB"
+  },
+  "objects": [
+    {
+      "id": "alarm",
+      "type": "sprite",
+      "asset": "alarm_ringing",
+      "position": { "x": 0.5, "y": 0.55 },
+      "scale": 1.5,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 10
+    },
+    {
+      "id": "cloud",
+      "type": "sprite",
+      "asset": "cloud",
+      "position": { "x": 0.5, "y": 0.55 },
+      "scale": 1.4,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 25
+    }
+  ],
+  "variables": {
+    "stopped": false
+  },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "cloud",
+      "condition": {
+        "type": "allConditionsCompleted",
+        "conditions": []
+      },
+      "actions": [
+        {
+          "type": "setVariable",
+          "key": "stopped",
+          "value": true
+        },
+        {
+          "type": "changeSprite",
+          "target": "alarm",
+          "asset": "alarm_stopped"
+        },
+        {
+          "type": "playAnimation",
+          "target": "alarm",
+          "animation": "bounce"
+        },
+        {
+          "type": "completeLevel"
+        }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "Move the cloud pillow off the alarm clock or cover it up to muffle and stop the sound!",
+    "highlightObjectId": "cloud"
+  }
+}

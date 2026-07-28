@@ -1,0 +1,107 @@
+{
+  "id": "tricky-brain-025",
+  "gameId": "tricky-brain",
+  "version": 1,
+  "title": "Assemble the Grand Trophy",
+  "question": {
+    "text": "Assemble the golden trophy to claim your Grand Championship!",
+    "position": { "x": 0.5, "y": 0.15 }
+  },
+  "background": {
+    "type": "color",
+    "value": "#FAF5FF"
+  },
+  "objects": [
+    {
+      "id": "trophy_base",
+      "type": "sprite",
+      "asset": "trophy_base",
+      "position": { "x": 0.5, "y": 0.65 },
+      "scale": 1.5,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 10
+    },
+    {
+      "id": "trophy_cup",
+      "type": "sprite",
+      "asset": "trophy_cup",
+      "position": { "x": 0.25, "y": 0.4 },
+      "scale": 1.4,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 20
+    },
+    {
+      "id": "trophy_star",
+      "type": "sprite",
+      "asset": "trophy_star",
+      "position": { "x": 0.75, "y": 0.4 },
+      "scale": 1.4,
+      "interactive": true,
+      "interactions": [
+        {
+          "type": "drag",
+          "snapBack": false
+        }
+      ],
+      "zIndex": 20
+    }
+  ],
+  "variables": {
+    "assembled": false
+  },
+  "rules": [
+    {
+      "event": "drop",
+      "source": "trophy_cup",
+      "condition": {
+        "type": "overlap",
+        "target": "trophy_base",
+        "distanceThreshold": 90
+      },
+      "actions": [
+        {
+          "type": "changeSprite",
+          "target": "trophy_base",
+          "asset": "trophy_full"
+        },
+        {
+          "type": "hideObject",
+          "target": "trophy_cup"
+        },
+        {
+          "type": "hideObject",
+          "target": "trophy_star"
+        },
+        {
+          "type": "setVariable",
+          "key": "assembled",
+          "value": true
+        },
+        {
+          "type": "playAnimation",
+          "target": "trophy_base",
+          "animation": "bounce"
+        },
+        {
+          "type": "completeLevel"
+        }
+      ]
+    }
+  ],
+  "hint": {
+    "text": "Drag the golden cup directly onto the wooden trophy base to complete the grand champion trophy!",
+    "highlightObjectId": "trophy_cup"
+  }
+}
