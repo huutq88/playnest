@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
+import { HeaderNav } from '@/components/layout/HeaderNav';
+import { Footer } from '@/components/layout/Footer';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -132,8 +134,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGame) }}
         />
       </head>
-      <body className="min-h-screen bg-[#0D0F23] text-slate-100 font-sans antialiased selection:bg-purple-600 selection:text-white">
-        {children}
+      <body className="min-h-screen bg-[#090d16] text-slate-100 font-sans antialiased selection:bg-purple-600 selection:text-white flex flex-col justify-between">
+        <HeaderNav />
+        <main className="flex-1">{children}</main>
+        <Footer />
       </body>
     </html>
   );

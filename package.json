@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "pnpm --filter @playnest/web dev",
-    "build": "pnpm --filter ... build",
-    "lint": "pnpm --filter ... lint"
+    "dev": "pnpm --parallel --filter @playnest/api --filter @playnest/web --filter @playnest/admin dev",
+    "dev:api": "pnpm --filter @playnest/api dev",
+    "dev:web": "pnpm --filter @playnest/web dev",
+    "dev:admin": "pnpm --filter @playnest/admin dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint"
   },
   "devDependencies": {
     "typescript": "^5.0.0"

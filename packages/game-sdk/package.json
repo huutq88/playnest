@@ -1,0 +1,28 @@
+{
+  "name": "@playnest/game-sdk",
+  "version": "1.0.0",
+  "description": "Official Game SDK for PlayNest Entertainment Platform",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "playnest-sdk": "./bin/cli.js",
+    "create-playnest-game": "./bin/cli.js"
+  },
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "pnpm run build"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@playnest/shared-types": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

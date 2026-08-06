@@ -7,6 +7,8 @@ WORKDIR /app
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
 COPY packages/level-schema/package.json ./packages/level-schema/
 COPY packages/puzzle-engine/package.json ./packages/puzzle-engine/
+COPY packages/shared-types/package.json ./packages/shared-types/
+COPY packages/game-sdk/package.json ./packages/game-sdk/
 COPY apps/web/package.json ./apps/web/
 
 # Install dependencies (Layer is CACHED unless package.json / pnpm-lock changes!)

@@ -3,6 +3,27 @@ version: "3.8"
 name: playnest
 
 services:
+  playnest-api:
+    image: playnest-api:latest
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+    container_name: playnest-api
+    restart: always
+    ports:
+      - "${PLAYNEST_API_PORT:-3082}:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    networks:
+      - playnest-isolated-network
+
   playnest-web:
     image: playnest-web:latest
     build:
@@ -33,6 +54,27 @@ services:
       - GA_PROPERTY_ID=${GA_PROPERTY_ID}
       - GA_CLIENT_EMAIL=${GA_CLIENT_EMAIL}
       - GA_PRIVATE_KEY=${GA_PRIVATE_KEY}
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    networks:
+      - playnest-isolated-network
+
+  playnest-admin:
+    image: playnest-admin:latest
+    build:
+      context: ..
+      dockerfile: apps/admin/Dockerfile
+    container_name: playnest-admin
+    restart: always
+    ports:
+      - "${PLAYNEST_ADMIN_PORT:-3081}:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
     healthcheck:
       test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1"]
       interval: 3s
