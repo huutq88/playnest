@@ -111,7 +111,12 @@ export function Footer() {
         </div>
 
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4">
-          <p>© 2026 HỘ KINH DOANH BẢO TRÂM KIDS (PlayNest Game Studio). All rights reserved.</p>
+          <div className="flex flex-wrap items-center gap-4">
+            <p>© 2026 HỘ KINH DOANH BẢO TRÂM KIDS (PlayNest Studio). All rights reserved.</p>
+            <Link href="/privacy" className="text-pink-400 hover:text-white font-semibold underline transition-colors">
+              Chính Sách Quyền Riêng Tư (Privacy Policy)
+            </Link>
+          </div>
           <p className="flex items-center gap-1">
             Made with <Heart className="w-3.5 h-3.5 text-pink-500 fill-pink-500" /> by PlayNest Team
           </p>
