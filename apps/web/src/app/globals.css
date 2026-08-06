@@ -1,14 +1,45 @@
 @import "tailwindcss";
+@source "./**/*.{js,ts,jsx,tsx,mdx}";
+@source "../**/*.{js,ts,jsx,tsx,mdx}";
 
 @theme {
   --font-sans: var(--font-poppins), 'Poppins', system-ui, -apple-system, sans-serif;
 }
 
 body {
-  background-color: #0D0F23 !important;
+  background-color: #090d16 !important;
   color: #E2E8F0 !important;
   font-family: var(--font-poppins), 'Poppins', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+}
+
+/* Custom Utilities */
+.gradient-text {
+  background: linear-gradient(135deg, #f472b6 0%, #c084fc 50%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-btn-primary {
+  background: linear-gradient(135deg, #db2777 0%, #9333ea 50%, #0891b2 100%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gradient-btn-primary:hover {
+  box-shadow: 0 0 25px rgba(219, 39, 119, 0.5);
+  transform: translateY(-2px);
+}
+
+.glass-card, .glass-panel {
+  background: rgba(13, 19, 34, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.glass-card:hover, .glass-panel:hover {
+  border-color: rgba(236, 72, 153, 0.4);
+  box-shadow: 0 10px 30px -10px rgba(236, 72, 153, 0.25);
 }
 
 /* Custom scrollbars */
@@ -16,34 +47,12 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0D0F23;
+  background: #090d16;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(37, 99, 235, 0.3);
+  background: rgba(236, 72, 153, 0.3);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(124, 58, 237, 0.6);
-}
-
-.gradient-btn-primary {
-  background: linear-gradient(135deg, #2563EB 0%, #7C3AED 50%, #EC4899 100%);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.gradient-btn-primary:hover {
-  box-shadow: 0 0 25px rgba(124, 58, 237, 0.5);
-  transform: translateY(-2px);
-}
-
-.glass-card, .glass-panel {
-  background: rgba(18, 22, 47, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(124, 58, 237, 0.15);
-}
-
-.glass-card:hover, .glass-panel:hover {
-  border-color: rgba(124, 58, 237, 0.4);
-  box-shadow: 0 10px 30px -10px rgba(124, 58, 237, 0.25);
+  background: rgba(236, 72, 153, 0.6);
 }

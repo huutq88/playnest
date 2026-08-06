@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, Youtube, Facebook, ExternalLink, Heart } from "lucide-react";
+import { Mail, Youtube, Facebook, ExternalLink, Heart, Building2, ShieldCheck, MapPin, Phone } from "lucide-react";
 import { PLAYNEST_SOCIALS } from "@playnest/shared-types";
 
 export function Footer() {
@@ -18,13 +18,31 @@ export function Footer() {
             <p className="text-xs text-gray-400 max-w-md leading-relaxed">
               Nền tảng giải trí đa phương tiện tổng hợp: Xem video TikTok, YouTube, Facebook, khám phá ứng dụng Google Play / App Store và chơi Web Games mượt mà không cần cài đặt.
             </p>
-            <div className="flex flex-col space-y-2 text-xs text-gray-300">
-              <div className="flex items-center gap-2 font-semibold">
-                <Mail className="w-4 h-4 text-purple-400" />
-                <span>Email: </span>
-                <a href={`mailto:${PLAYNEST_SOCIALS.email}`} className="text-purple-300 hover:text-white underline">
-                  {PLAYNEST_SOCIALS.email}
-                </a>
+            
+            {/* Thông tin pháp lý Hộ kinh doanh xác minh Facebook BM */}
+            <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2 text-xs text-gray-300 max-w-md">
+              <div className="flex items-center gap-2 font-bold text-white text-sm">
+                <Building2 className="w-4 h-4 text-purple-400 shrink-0" />
+                <span>HỘ KINH DOANH BẢO TRÂM KIDS</span>
+              </div>
+              <div className="flex items-start gap-2 text-gray-300">
+                <ShieldCheck className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                <span>Mã số HKD / MST: <strong className="text-white">040190008784</strong></span>
+              </div>
+              <div className="flex items-start gap-2 text-gray-300">
+                <MapPin className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                <span>Địa chỉ: Số LK18-09, Khu Dọc Bún 2, Phường Hà Đông, Thành phố Hà Nội, Việt Nam</span>
+              </div>
+              <div className="flex items-center gap-2 text-gray-300">
+                <Phone className="w-4 h-4 text-cyan-400 shrink-0" />
+                <span>Hotline: <a href="tel:0989987331" className="text-purple-300 hover:text-white font-medium">0989987331</a></span>
+              </div>
+              <div className="flex items-center gap-2 text-gray-300">
+                <Mail className="w-4 h-4 text-cyan-400 shrink-0" />
+                <span>Email: <a href={`mailto:${PLAYNEST_SOCIALS.email}`} className="text-purple-300 hover:text-white underline">{PLAYNEST_SOCIALS.email}</a></span>
+              </div>
+              <div className="text-[11px] text-gray-400 pt-1.5 border-t border-white/10">
+                Đại diện pháp luật: <span className="text-gray-200 font-medium">ĐẶNG THỊ NGUYÊN</span>
               </div>
             </div>
           </div>
@@ -93,7 +111,7 @@ export function Footer() {
         </div>
 
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4">
-          <p>© 2026 PlayNest Game Studio (`playnest.zone`). All rights reserved.</p>
+          <p>© 2026 HỘ KINH DOANH BẢO TRÂM KIDS (PlayNest Game Studio). All rights reserved.</p>
           <p className="flex items-center gap-1">
             Made with <Heart className="w-3.5 h-3.5 text-pink-500 fill-pink-500" /> by PlayNest Team
           </p>

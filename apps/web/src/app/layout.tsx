@@ -15,25 +15,22 @@ const siteUrl = 'https://playnest.zone';
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'PlayNest.zone - Instant Brain & Casual Web Games',
-    template: '%s | PlayNest.zone',
+    default: 'Hộ Kinh Doanh Bảo Trâm Kids - Thời Trang Trẻ Em & Bán Buôn May Mặc',
+    template: '%s | Hộ Kinh Doanh Bảo Trâm Kids',
   },
-  description: 'Hundreds of fun puzzle and brain-teaser web games. No download required, play instantly on any device.',
+  description: 'Chuyên sản xuất, bán buôn và bán lẻ thời trang trẻ em, hàng may mặc, giày dép và phụ kiện cao cấp. Mã số đăng ký hộ kinh doanh: 040190008784.',
   keywords: [
-    'playnest',
-    'web game',
-    'casual game',
-    'brain test',
-    'puzzle game',
-    'instant web games',
-    'tricky brain quest',
-    'free html5 games',
-    'browser games',
-    'playnest.zone',
+    'Bảo Trâm Kids',
+    'Hộ Kinh Doanh Bảo Trâm Kids',
+    'thời trang trẻ em',
+    'bán buôn hàng may mặc',
+    'quần áo trẻ em giá sỉ',
+    'giày dép trẻ em',
+    '040190008784',
   ],
-  authors: [{ name: 'PlayNest Studio' }],
-  creator: 'PlayNest Studio',
-  publisher: 'PlayNest Studio',
+  authors: [{ name: 'Hộ Kinh Doanh Bảo Trâm Kids' }],
+  creator: 'Hộ Kinh Doanh Bảo Trâm Kids',
+  publisher: 'Hộ Kinh Doanh Bảo Trâm Kids',
   formatDetection: {
     email: false,
     address: false,
@@ -43,45 +40,21 @@ export const metadata: Metadata = {
     canonical: siteUrl,
   },
   openGraph: {
-    title: 'PlayNest.zone - Instant Brain & Casual Web Games',
-    description: 'Hundreds of fun puzzle and brain-teaser web games. No download required, play instantly on any device.',
+    title: 'Hộ Kinh Doanh Bảo Trâm Kids - Thời Trang Trẻ Em Cao Cấp',
+    description: 'Chuyên sản xuất, bán buôn và bán lẻ thời trang trẻ em, hàng may mặc, giày dép và phụ kiện cao cấp. MST: 040190008784.',
     url: siteUrl,
-    siteName: 'PlayNest.zone',
-    images: [
-      {
-        url: '/images/logo-playnest.png',
-        width: 1200,
-        height: 630,
-        alt: 'PlayNest.zone Web Games',
-      },
-    ],
-    locale: 'en_US',
+    siteName: 'Hộ Kinh Doanh Bảo Trâm Kids',
+    locale: 'vi_VN',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'PlayNest.zone - Instant Brain & Casual Web Games',
-    description: 'Hundreds of fun puzzle and brain-teaser web games. No download required, play instantly on any device.',
-    images: ['/images/logo-playnest.png'],
-    creator: '@playnestzone',
+    title: 'Hộ Kinh Doanh Bảo Trâm Kids - Thời Trang Trẻ Em Cao Cấp',
+    description: 'Chuyên sản xuất, bán buôn và bán lẻ thời trang trẻ em, hàng may mặc, giày dép và phụ kiện cao cấp.',
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  icons: {
-    icon: [
-      { url: '/favicon.ico' },
-      { url: '/icon.png', type: 'image/png' },
-    ],
-    apple: '/icon.png',
   },
 };
 
@@ -92,14 +65,20 @@ export default function RootLayout({
 }) {
   const jsonLdWebsite = {
     '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: 'PlayNest.zone',
+    '@type': 'Organization',
+    name: 'Hộ Kinh Doanh Bảo Trâm Kids',
+    taxID: '040190008784',
     url: siteUrl,
-    description: 'Hundreds of fun puzzle and casual web games.',
-    publisher: {
-      '@type': 'Organization',
-      name: 'PlayNest Studio',
-      logo: `${siteUrl}/images/logo-playnest.png`,
+    telephone: '0989987331',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Số LK18-09, Khu Dọc Bún 2, Phường Hà Đông',
+      addressLocality: 'Thành phố Hà Nội',
+      addressCountry: 'VN',
+    },
+    founder: {
+      '@type': 'Person',
+      name: 'Đặng Thị Nguyên',
     },
   };
 
